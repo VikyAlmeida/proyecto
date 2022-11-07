@@ -60,6 +60,7 @@ class Generales{
         $rand = rand();
         if(!empty($campo))
         {
+            var_dump($campo);
             if($campo["size"]>0)
             {
                 $comprueba = @getimagesize($campo["tmp_name"]);
@@ -71,6 +72,21 @@ class Generales{
                     return $campo;
                 }
                 else{$error = "El archivo no es una imagen";}
+            }
+            else{$campo = "default.jpg";return $campo;}
+            
+        }else{$campo = "default.jpg";return $campo;}       
+    }
+    public static function file($campo, $rutaFolder){
+        $rand = rand();
+        if(!empty($campo))
+        {
+            if($campo["type"] == 'application/octet-stream')
+            {
+                var_dump($campo);
+                $ruta = $rutaFolder."".$campo["name"];
+                move_uploaded_file($campo["tmp_name"],$ruta);
+                return  $campo["name"];
             }
             else{$campo = "default.jpg";return $campo;}
             

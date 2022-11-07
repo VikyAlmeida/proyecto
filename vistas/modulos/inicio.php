@@ -1,6 +1,9 @@
-
-    
-    
+<?php
+    $categoryController = new CategoryController();
+    $categoriesWithLocalsMore = $categoryController->getCategories('SELECT c.id, c.name, c.img FROM categories c inner join establisments e on c.id=e.id_category group by id_category order by count(e.id) desc limit 4');
+    $establishmentController = new EstablishmentController();
+    $establishmentMoreActive = $establishmentController->getEstablishments('SELECT * FROM establisments order by updated_at desc limit 7');
+?> 
     <section class="welcome-area">
         <div class="welcome-slides owl-carousel">
             <!-- Single Welcome Slide -->
@@ -107,29 +110,12 @@
                         <h1>Categorias con mas locales</h1>
                     </div>
                     <div class="service-content d-flex align-items-center justify-content-between">
-                        <!-- Single Service Area -->
-                        <div class="single-service--area mb-50 wow fadeInUp" data-wow-delay="50ms" style="width:13em">
-                            <img src="./vistas/img/core-img/icon1.png" alt="">
-                            <h5>Restaurantes</h5>
-                        </div>
-
-                        <!-- Single Service Area -->
-                        <div class="single-service--area mb-50 wow fadeInUp" data-wow-delay="300ms" style="width:13em">
-                            <img src="./vistas/img/core-img/icon2.png" alt="">
-                            <h5>Ocio</h5>
-                        </div>
-
-                        <!-- Single Service Area -->
-                        <div class="single-service--area mb-50 wow fadeInUp" data-wow-delay="500ms" style="width:13em">
-                            <img src="./vistas/img/core-img/icon3.png" alt="">
-                            <h5>Moda</h5>
-                        </div>
-
-                        <!-- Single Service Area -->
-                        <div class="single-service--area mb-50 wow fadeInUp" data-wow-delay="700ms" style="width:13em">
-                            <img src="./vistas/img/core-img/icon4.png" alt="">
-                            <h5>Hoteles</h5>
-                        </div>
+                        <?php foreach ($categoriesWithLocalsMore as $category): ?>
+                            <div class="single-service--area mb-50 wow fadeInUp" data-wow-delay="50ms" style="width:13em">
+                                <img src="<?=$category['img']?>" alt="">
+                                <h5><?=$category['name']?></h5>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                     <div class="section-heading wow" style="text-align:right;">
                         <a href="#" class="btn roberto-btn">Ver mas</a>
@@ -198,107 +184,31 @@
     <section class="roberto-project-area mb-100">
         <!-- Projects Slide -->
                     <div class="section-heading wow fadeInUp mt-100" data-wow-delay="100ms">
-                        <h1>Mejores valorados</h1>
+                        <h1>Mas activos</h1>
                     </div>
         <div class="projects-slides owl-carousel">
-            <!-- Single Project Slide -->
-            <div class="single-project-slide active bg-img" style="background-image: url(./vistas/img/bg-img/5.jpg);">
-                <!-- Project Text -->
+            <?php 
+                foreach($establishmentMoreActive as $establishment): 
+                $img = $establishmentController->getImageFavorite($establishment['id']);
+                $background = 'url('.$img['img'].')'; 
+                $category = $categoryController->getCategory('id', $establishment['id_category']);
+            ?>
+            <div class="single-project-slide active bg-img" style="background-image: <?=$background?>;">
                 <div class="project-content">
                     <div class="text">
-                        <h5>NOMBRE</h5>
-                        <h6>CATEGORIA</h6>
+                        <h5><?=$establishment['name']?></h5>
+                        <h6><?=$category['name']?></h6>
                     </div>
                 </div>
-                <!-- Hover Effects -->
                 <div class="hover-effects">
                     <div class="text">
-                        <h5>NOMBRE</h5>
-                        <h6>CATEGORIA</h6>
-                        <p>DESCRIPCION</p>
+                        <h5><?=$establishment['name']?></h5>
+                        <h6><?=$category['name']?></h6>
+                        <p><?=$establishment['location']?></p>
                     </div>
                     <a href="#" class="btn project-btn">Ver mas <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
                 </div>
             </div>
-
-            <!-- Single Project Slide -->
-            <div class="single-project-slide bg-img" style="background-image: url(./vistas/img/bg-img/6.jpg);">
-                <!-- Project Text -->
-                <div class="project-content">
-                    <div class="text">
-                        <h6>Entertaiment</h6>
-                        <h5>Racing Bike</h5>
-                    </div>
-                </div>
-                <!-- Hover Effects -->
-                <div class="hover-effects">
-                    <div class="text">
-                        <h6>Entertaiment</h6>
-                        <h5>Racing Bike</h5>
-                        <p>I focus a lot on helping the first time or inexperienced traveler head out prepared and confident...</p>
-                    </div>
-                    <a href="#" class="btn project-btn">Discover Now <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                </div>
-            </div>
-
-            <!-- Single Project Slide -->
-            <div class="single-project-slide bg-img" style="background-image: url(./vistas/img/bg-img/7.jpg);">
-                <!-- Project Text -->
-                <div class="project-content">
-                    <div class="text">
-                        <h6>Entertaiment</h6>
-                        <h5>Racing Bike</h5>
-                    </div>
-                </div>
-                <!-- Hover Effects -->
-                <div class="hover-effects">
-                    <div class="text">
-                        <h6>Entertaiment</h6>
-                        <h5>Racing Bike</h5>
-                        <p>I focus a lot on helping the first time or inexperienced traveler head out prepared and confident...</p>
-                    </div>
-                    <a href="#" class="btn project-btn">Discover Now <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                </div>
-            </div>
-
-            <!-- Single Project Slide -->
-            <div class="single-project-slide bg-img" style="background-image: url(./vistas/img/bg-img/8.jpg);">
-                <!-- Project Text -->
-                <div class="project-content">
-                    <div class="text">
-                        <h6>Entertaiment</h6>
-                        <h5>Racing Bike</h5>
-                    </div>
-                </div>
-                <!-- Hover Effects -->
-                <div class="hover-effects">
-                    <div class="text">
-                        <h6>Entertaiment</h6>
-                        <h5>Racing Bike</h5>
-                        <p>I focus a lot on helping the first time or inexperienced traveler head out prepared and confident...</p>
-                    </div>
-                    <a href="#" class="btn project-btn">Discover Now <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                </div>
-            </div>
-
-            <!-- Single Project Slide -->
-            <div class="single-project-slide bg-img" style="background-image: url(./vistas/img/bg-img/9.jpg);">
-                <!-- Project Text -->
-                <div class="project-content">
-                    <div class="text">
-                        <h6>Entertaiment</h6>
-                        <h5>Racing Bike</h5>
-                    </div>
-                </div>
-                <!-- Hover Effects -->
-                <div class="hover-effects">
-                    <div class="text">
-                        <h6>Entertaiment</h6>
-                        <h5>Racing Bike</h5>
-                        <p>I focus a lot on helping the first time or inexperienced traveler head out prepared and confident...</p>
-                    </div>
-                    <a href="#" class="btn project-btn">Discover Now <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </section>

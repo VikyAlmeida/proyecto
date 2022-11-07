@@ -1,403 +1,188 @@
--- phpMyAdmin SQL Dump
--- version 5.0.4
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 04-11-2022 a las 01:18:50
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.2
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `inaya`
---
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `booking`
---
-
-CREATE TABLE `booking` (
-  `id` int(4) NOT NULL,
-  `user_id` int(4) DEFAULT NULL,
-  `establishment_id` int(4) DEFAULT NULL,
-  `date_of_booking` datetime DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `categories`
---
-
-CREATE TABLE `categories` (
-  `id` int(4) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `description` varchar(255) NOT NULL DEFAULT '',
-  `image` varchar(255) NOT NULL DEFAULT '',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `categories`
---
-
-INSERT INTO `categories` (`id`, `name`, `description`, `image`, `created_at`, `updated_at`) VALUES
-(20, 'Victoria Almeida ', 'kmtdu7yf', 'views/images/categories/1736842426uwu.PNG', '2022-10-17 01:32:49', '2022-10-17 01:32:49');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `categoriesbysections`
---
-
-CREATE TABLE `categoriesbysections` (
-  `id` int(4) NOT NULL,
-  `section_id` int(4) DEFAULT NULL,
-  `category_id` int(4) DEFAULT NULL,
-  `style` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `establishments`
---
-
-CREATE TABLE `establishments` (
-  `id` int(4) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `slug` varchar(45) NOT NULL DEFAULT '',
-  `location` varchar(255) DEFAULT NULL,
-  `shedule` datetime DEFAULT NULL,
-  `category_id` int(4) NOT NULL DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `formats`
---
-
-CREATE TABLE `formats` (
-  `id` int(4) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `roles`
---
-
-CREATE TABLE `roles` (
-  `id` int(4) NOT NULL,
-  `name` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `roles`
---
-
-INSERT INTO `roles` (`id`, `name`) VALUES
-(1, 'administrator'),
-(2, 'merchant'),
-(3, 'customer');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `sections`
---
-
-CREATE TABLE `sections` (
-  `id` int(4) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `category_id` int(4) DEFAULT NULL,
-  `format_id` int(4) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `socialnetworks`
---
-
-CREATE TABLE `socialnetworks` (
-  `id` int(4) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `socialnetworksbyestablishments`
---
-
-CREATE TABLE `socialnetworksbyestablishments` (
-  `id` int(4) NOT NULL,
-  `socialNetwork_id` int(4) DEFAULT NULL,
-  `establishment_id` int(4) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `styles`
---
-
-CREATE TABLE `styles` (
-  `id` int(4) NOT NULL,
-  `section_id` int(4) DEFAULT NULL,
-  `establishment_id` int(4) DEFAULT NULL,
-  `style` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `users`
---
-
-CREATE TABLE `users` (
-  `id` int(4) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `dni` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `role_id` int(4) NOT NULL DEFAULT 3,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `users`
---
-
-INSERT INTO `users` (`id`, `name`, `dni`, `email`, `password`, `role_id`, `created_at`, `updated_at`) VALUES
-(3, 'Victoria Almeida Calderon', '29628253K', 'viky2000.22@gmail.com', '$2y$10$1zhXkbiDxatgNV/G1ZfR1eKNihtaQZU5.45UpIf0edkqgK2Cctvdq', 1, '2022-11-04 00:01:30', '2022-11-04 00:01:30');
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `booking`
---
-ALTER TABLE `booking`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_userByBooking` (`user_id`),
-  ADD KEY `fk_establishmentByBooking` (`establishment_id`);
-
---
--- Indices de la tabla `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `categoriesbysections`
---
-ALTER TABLE `categoriesbysections`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_section` (`section_id`),
-  ADD KEY `fk_category` (`category_id`);
-
---
--- Indices de la tabla `establishments`
---
-ALTER TABLE `establishments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_categoryByEstablishment` (`category_id`);
-
---
--- Indices de la tabla `formats`
---
-ALTER TABLE `formats`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `sections`
---
-ALTER TABLE `sections`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_categoryBySection` (`category_id`),
-  ADD KEY `fk_formatBySection` (`format_id`);
-
---
--- Indices de la tabla `socialnetworks`
---
-ALTER TABLE `socialnetworks`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `socialnetworksbyestablishments`
---
-ALTER TABLE `socialnetworksbyestablishments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_socialNetworkByEstablishment` (`socialNetwork_id`),
-  ADD KEY `fk_establishmentBysocialNetwork` (`establishment_id`);
-
---
--- Indices de la tabla `styles`
---
-ALTER TABLE `styles`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_sectionByStyle` (`section_id`),
-  ADD KEY `fk_establishmentByStyle` (`establishment_id`);
-
---
--- Indices de la tabla `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_role` (`role_id`) USING BTREE;
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `booking`
---
-ALTER TABLE `booking`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT de la tabla `categoriesbysections`
---
-ALTER TABLE `categoriesbysections`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `establishments`
---
-ALTER TABLE `establishments`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `formats`
---
-ALTER TABLE `formats`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `roles`
---
-ALTER TABLE `roles`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `sections`
---
-ALTER TABLE `sections`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `socialnetworks`
---
-ALTER TABLE `socialnetworks`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `socialnetworksbyestablishments`
---
-ALTER TABLE `socialnetworksbyestablishments`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `styles`
---
-ALTER TABLE `styles`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `booking`
---
-ALTER TABLE `booking`
-  ADD CONSTRAINT `fk_establishmentByBooking` FOREIGN KEY (`establishment_id`) REFERENCES `establishments` (`id`),
-  ADD CONSTRAINT `fk_userByBooking` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Filtros para la tabla `categoriesbysections`
---
-ALTER TABLE `categoriesbysections`
-  ADD CONSTRAINT `fk_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
-  ADD CONSTRAINT `fk_section` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`);
-
---
--- Filtros para la tabla `sections`
---
-ALTER TABLE `sections`
-  ADD CONSTRAINT `fk_categoryBySection` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
-  ADD CONSTRAINT `fk_formatBySection` FOREIGN KEY (`format_id`) REFERENCES `formats` (`id`);
-
---
--- Filtros para la tabla `socialnetworksbyestablishments`
---
-ALTER TABLE `socialnetworksbyestablishments`
-  ADD CONSTRAINT `fk_establishmentBysocialNetwork` FOREIGN KEY (`establishment_id`) REFERENCES `establishments` (`id`),
-  ADD CONSTRAINT `fk_socialNetworkByEstablishment` FOREIGN KEY (`socialNetwork_id`) REFERENCES `socialnetworks` (`id`);
-
---
--- Filtros para la tabla `styles`
---
-ALTER TABLE `styles`
-  ADD CONSTRAINT `fk_establishmentByStyle` FOREIGN KEY (`establishment_id`) REFERENCES `establishments` (`id`),
-  ADD CONSTRAINT `fk_sectionByStyle` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+﻿create database if not exists inaya;
+use inaya;
+
+create table if not exists roles(
+  id int(4) auto_increment primary key,
+  name varchar(15),
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp)
+);
+
+insert into roles (name) value ('Administrador');
+insert into roles (name) value ('Comerciante');
+insert into roles (name) value ('Usuario');
+
+create table if not exists categories(
+  id int(4) auto_increment primary key,
+  name varchar(50) unique,
+  img varchar(255) unique,
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp)
+);
+
+insert into categories (name, img) value ('Restaurantes', './vistas/img/categories/icon1.png');
+insert into categories (name, img) value ('Ocio', './vistas/img/categories/icon2.png');
+insert into categories (name, img) value ('Moda', './vistas/img/categories/icon3.png');
+insert into categories (name, img) value ('Hoteles', './vistas/img/categories/icon4.png');
+
+create table if not exists social_networks(
+  id int(4) auto_increment primary key,
+  name varchar(50) unique,
+  logo varchar(50) unique,
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp)
+);
+
+insert into social_networks (name, logo) value ('Facebook', './vistas/img/socialNetworks/facebook.jpg');
+insert into social_networks (name, logo) value ('Twitter', './vistas/img/socialNetworks/twitter.png');
+insert into social_networks (name, logo) value ('Instagram', './vistas/img/socialNetworks/instagram.png');
+insert into social_networks (name, logo) value ('Web', './vistas/img/socialNetworks/google.png' );
+
+create table if not exists users(
+  id int(4) auto_increment primary key,
+  dni varchar(9) not null unique,
+  name varchar(50) not null,
+  email varchar(50) not null,
+  password varchar(255)not null,
+  id_role int(4),
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp),
+
+  constraint fk_role foreign key (id_role) references roles(id)
+);
+
+insert into users (dni, name, email, password, id_role) value ('29628253K', 'Victoria Almeida Calderon', 'viky2000.22@gmail.com', '$2y$10$1I247TMs0jORANsj2hyVG.E4LcwtH8vyvQ7Y91SWRUEISwMGDYmtK', 1);
+insert into users (dni, name, email, password, id_role) value ('62165091R', 'Victoria Almeida Calderon', 'victoria.almeida.calderon@gmail.com', '$2y$10$1I247TMs0jORANsj2hyVG.E4LcwtH8vyvQ7Y91SWRUEISwMGDYmtK', 2);
+insert into users (dni, name, email, password, id_role) value ('55762442T', 'Victoria Almeida Calderon', 'victoria.almeida.calderon@ieslaarboleda.com', '$2y$10$1I247TMs0jORANsj2hyVG.E4LcwtH8vyvQ7Y91SWRUEISwMGDYmtK', 3);
+
+
+create table if not exists establisments(
+  id int(4) auto_increment primary key,
+  name varchar(50)not null unique,
+  location varchar(100)not null unique,
+  slug varchar(50)not null unique,
+  id_category int(4),
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp),
+
+  constraint fk_category foreign key (id_category) references categories(id)
+);
+
+insert into establisments (name, location, slug, id_category) value ('The Jungle - Lounge Bar', 'Av. de Villa Real de San Antonio, 3, 21400 Ayamonte, Huelva', 'jungle-bar', 1);
+insert into establisments (name, location, slug, id_category) value ('Café Bávaro Coffee', 'Calle Enrique Villegas Vélez, 9, 21400 Ayamonte, Huelva', 'cafe-bavaro', 1);
+insert into establisments (name, location, slug, id_category) value ('Sala saona', 'C/ Médico Rey García', 'sala-saona', 1);
+insert into establisments (name, location, slug, id_category) value ('Galerias Abreu', 'P.º de la Ribera, 4, 21400 Ayamonte, Huelva', 'galerias-abreu', 2);
+insert into establisments (name, location, slug, id_category) value ('lefties', ' C.C. La Plaza, Av. de la Constitución, 6, 21400 Ayamonte, Huelva', 'lefties', 2);
+insert into establisments (name, location, slug, id_category) value ('Mesón Bar La Ribera', 'P.º de la Ribera, 2, 21400 Ayamonte, Huelva', 'ribera-bar', 3);
+insert into establisments (name, location, slug, id_category) value ('Playa canela Hotel 4*', 'Av. de la Mojarra, 0, 21409, Huelva', 'playa-canela', 4);
+
+create table if not exists establisments_image(
+  id int(4) auto_increment primary key,
+  img varchar(255)not null unique,
+  id_establishment int(4),
+  favorite boolean default(false),
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp),
+  constraint fk_establishmentByImage foreign key (id_establishment) references establisments(id)
+);
+
+insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/jungleLogo.png',1,true);
+insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/bavaroLogo.png',2,true);
+insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/saonaLogo.jpg',3,true);
+insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/galeriasAbreu.jpg',4,true);
+insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/leftiesLogo.png',5,true);
+insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/riberaLogo.png',6,true);
+insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/hotelPlayaCanelaLogo.png',7,true);
+
+create table if not exists sections(
+  id int(4) auto_increment primary key,
+  name varchar(50)not null unique,
+  file varchar(255)not null unique,
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp)
+);
+
+insert into sections (name, file) value ('banner', './vistas/modulos/sections/banner.php');
+insert into sections (name, file) value ('galery', './vistas/modulos/sections/gallery.php');
+insert into sections (name, file) value ('catalogo', './vistas/modulos/sections/catalogo.php');
+
+create table if not exists formats(
+  id int(4) auto_increment primary key,
+  name varchar(50)not null unique,
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp)
+);
+
+insert into formats (name) value ('Imagenes');
+insert into formats (name) value ('Titulos');
+insert into formats (name) value ('Subtitulos');
+insert into formats (name) value ('Listado');
+insert into formats (name) value ('Menu');
+
+create table if not exists datas(
+  id int(4) auto_increment primary key,
+  datum varchar(50)not null unique,
+  id_establishment int(4),
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp),
+  constraint fk_establishmentByDatas foreign key (id_establishment) references establisments(id)
+);
+
+create table if not exists booking(
+  id_user int(4),
+  id_establishment int(4),
+  date_of_booking datetime not null,
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp),
+
+  constraint fk_user foreign key (id_user) references users(id),
+  constraint fk_establishment foreign key (id_establishment) references establisments(id),
+  constraint pk_user_establisment PRIMARY KEY (id_user, id_establishment)
+);
+
+create table if not exists social_networks_by_establisment (
+  id_socialNetwork int(4),
+  id_establishment int(4),
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp),
+
+  constraint fk_socialNetwork foreign key (id_socialNetwork) references social_networks(id),
+  constraint fk_establishmentBySocialNetwork foreign key (id_establishment) references establisments(id),
+  constraint pk_user_establisment PRIMARY KEY (id_socialNetwork, id_establishment)
+);
+
+create table if not exists format_by_section (
+  id_format int(4),
+  id_section int(4),
+  occurrence_of_the_format int(4),
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp),
+
+  constraint fk_format foreign key (id_format) references formats(id),
+  constraint fk_section foreign key (id_section) references sections(id),
+  constraint pk_user_establisment PRIMARY KEY (id_format, id_section)
+);
+
+create table if not exists category_by_section (
+  id_category int(4),
+  id_section int(4),
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp),
+
+  constraint fk_categoryXsection foreign key (id_category) references categories(id),
+  constraint fk_sectionXcategory foreign key (id_section) references sections(id),
+  constraint pk_categoryXsection PRIMARY KEY (id_category, id_section)
+);
+
+create table if not exists styles (
+  id_format int(4),
+  id_section int(4),
+  id_datum int (4),
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp),
+
+  constraint fk_format_section_datum foreign key (id_format) references formats(id),
+  constraint fk_section_format_datum foreign key (id_section) references sections(id),
+  constraint fk_datum_section_format foreign key (id_datum) references datas(id),
+  constraint pk_datas_sections_formats PRIMARY KEY (id_format, id_section, id_datum)
+);

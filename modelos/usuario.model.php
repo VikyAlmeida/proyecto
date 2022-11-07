@@ -1,7 +1,7 @@
 <?php
     require_once("conexion.php");
 
-    class UserModel{
+    class UserModel {
         public static function where($tabla,$condicion){
             $conexion = Conectar::conectate();
             
@@ -15,6 +15,7 @@
 
             $sentencia = null;
         }
+        
         public static function insert($tabla,$datos){
             $conexion = Conectar::conectate();
             
@@ -24,5 +25,16 @@
             {return true;}
             else
             {return false;}
+        }
+        
+        public static function update($datos,$id){
+            $conexion = Conectar::conectate();
+
+            $tabla = "users";	
+            $consulta = "UPDATE $tabla SET name = ?, dni = ?, email = ?, password = ? WHERE id like ?";
+            $resultado = $conexion->prepare($consulta);
+            if($resultado->execute(array($datos["nombre"],$datos["dni"],$datos["email"],$datos["pass"],$id)))
+            {return true;}
+            else{return false;}
         }
     }

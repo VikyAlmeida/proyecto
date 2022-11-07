@@ -37,8 +37,8 @@
                                     <li><a href="#">- Mi area</a>
                                         <ul class="dropdown">
                                             <li><a href="perfil">- Perfil</a></li>
-                                            <?php if ($_SESSION['usuario']["role_id"] == 1): ?><li><a href="menu">- Area admin</a></li>
-                                            <?php elseif ($_SESSION['usuario']["role_id"] == 2): ?><li><a href="menu">- Mis locales</a></li>
+                                            <?php if ($_SESSION['usuario']["id_role"] == 1): ?><li><a href="menu">- Area admin</a></li>
+                                            <?php elseif ($_SESSION['usuario']["id_role"] == 2): ?><li><a href="menu">- Mis locales</a></li>
                                             <?php endif; ?>
                                         </ul>
                                     </li>
