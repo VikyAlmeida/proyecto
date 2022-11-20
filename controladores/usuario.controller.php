@@ -29,13 +29,21 @@ class userController{
                     $_SESSION["usuario"]["id"]=$userBd["id"];
                     $_SESSION["usuario"]["name"]=$userBd["name"];
                     $_SESSION["usuario"]["id_role"]=$userBd["id_role"];
-                    echo "<script>
-                            Swal.fire(
-                            'Loggued!',
-                            'Has iniciado sesion.',
-                            'success'
-                        ).then(() => window.location= 'inicio');
-                        </script>"; 
+                    if ($userBd["id_role"]=1 or $userBd["id_role"]=2) {
+                        echo "<script>
+                                Swal.fire(
+                                'Loggued!',
+                                'Has iniciado sesion.',
+                                'success'
+                            ).then(() => window.location= 'menu');
+                            </script>"; 
+                    } else {
+                        echo "<script>
+                                'error',
+                                'Oops...!',
+                                'Ha ocurrido un error.',  
+                              ).then(() => window.location= 'login');
+                        </script>"; }
                 else:
                     unset($_SESSION["usuario"]);
                     echo "<script>
@@ -94,5 +102,11 @@ class userController{
                </script>";
             endif;
         }
+    }
+    public function getUsers($query){
+        if ($query == null) $query = 'SELECT * FROM users';
+        
+        $registros = UserModel::getUsers($query);
+        return $registros;
     }
 }

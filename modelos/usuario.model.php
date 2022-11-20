@@ -37,4 +37,16 @@
             {return true;}
             else{return false;}
         }
+        
+        public static function getUsers($query){            
+            $conexion = Conectar::conectate();
+
+            $result = $conexion->query($query);
+            if($result->rowCount()>1):
+                return $result->fetchAll();
+            else:
+                return $result->fetch();
+            endif;
+        }
+
     }

@@ -183,9 +183,9 @@
     
     <section class="roberto-project-area mb-100">
         <!-- Projects Slide -->
-                    <div class="section-heading wow fadeInUp mt-100" data-wow-delay="100ms">
-                        <h1>Mas activos</h1>
-                    </div>
+        <div class="section-heading wow fadeInUp mt-100" data-wow-delay="100ms">
+            <h1>Mas activos</h1>
+        </div>
         <div class="projects-slides owl-carousel">
             <?php 
                 foreach($establishmentMoreActive as $establishment): 
@@ -193,7 +193,7 @@
                 $background = 'url('.$img['img'].')'; 
                 $category = $categoryController->getCategory('id', $establishment['id_category']);
             ?>
-            <div class="single-project-slide active bg-img" style="background-image: <?=$background?>;">
+            <div class="single-project-slide active bg-img" style="height:18em;background-image: <?=$background?>;">
                 <div class="project-content">
                     <div class="text">
                         <h5><?=$establishment['name']?></h5>

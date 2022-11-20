@@ -114,8 +114,7 @@ ul {
     width: 100%;
     top: 0;
     left: 0;
-    z-index: -1;
-    background-color: #0e2737b3; }
+    z-index: -1; }
 
 .bg-img {
   background-position: center center !important;
