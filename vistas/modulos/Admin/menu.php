@@ -17,12 +17,12 @@
     $users_json = json_encode($users);
 
     $establishmentController = new establishmentController();
-    $establishmentTotal = $establishmentController->getEstablishments('SELECT count(id) FROM establisments');
-    $establishment = $establishmentController->getEstablishments('SELECT count(id) as establishemnByCreatedDate, month(created_at) as mes FROM establisments e group by (month(created_at)) Order by created_at');
+    $establishmentTotal = $establishmentController->getGraphicsData('SELECT count(id) FROM establisments');
+    $establishment = $establishmentController->getGraphicsData('SELECT count(id) as establishemnByCreatedDate, month(created_at) as mes FROM establisments e group by (month(created_at)) Order by created_at');
     $establishment_json = json_encode($establishment);
 
     $establishmentController = new establishmentController();
-    $categoriesEstablishment = $establishmentController->getEstablishments('SELECT id_category, c.name as name, count(e.id) as establishmentByCategory FROM establisments e join categories c on c.id=id_category group by id_category;');
+    $categoriesEstablishment = $establishmentController->getGraphicsData('SELECT id_category, c.name as name, count(e.id) as establishmentByCategory FROM establisments e join categories c on c.id=id_category group by id_category;');
     $categories_json = json_encode($categoriesEstablishment);
 ?> 
 

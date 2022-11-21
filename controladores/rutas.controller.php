@@ -8,7 +8,7 @@ class ControllerRutas{
             "logueado" => [
                 "comunes" => ['logout','perfil'],
                 "admin" => ['menu', 'categorias','redesSociales','secciones', 'formato'],
-                "propietario" => ['menu', 'custom'],
+                "propietario" => ['menu', 'custom', 'miLocal'],
             ],
         ];
 
@@ -29,6 +29,8 @@ class ControllerRutas{
             else:
                 include("./vistas/modulos/404.php");
             endif;
+        } else {
+            include("./vistas/modulos/404.php");
         }
     }
 }

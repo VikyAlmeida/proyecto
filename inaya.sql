@@ -62,7 +62,7 @@ create table if not exists establisments(
   location varchar(100)not null unique,
   slug varchar(50)not null unique,
   id_category int(4),
-  id_owner int(4),
+  id_owner int(4) default 2,
   created_at datetime default(current_timestamp),
   updated_at datetime default(current_timestamp),
 
@@ -70,12 +70,12 @@ create table if not exists establisments(
   constraint fk_category foreign key (id_category) references categories(id)
 );
 
-insert into establisments (name, location, slug, id_category) value ('The Jungle - Lounge Bar', 'Av. de Villa Real de San Antonio, 3, 21400 Ayamonte, Huelva', 'jungle-bar', 1);
-insert into establisments (name, location, slug, id_category) value ('Café Bávaro Coffee', 'Calle Enrique Villegas Vélez, 9, 21400 Ayamonte, Huelva', 'cafe-bavaro', 1);
-insert into establisments (name, location, slug, id_category) value ('Sala saona', 'C/ Médico Rey García', 'sala-saona', 1);
-insert into establisments (name, location, slug, id_category) value ('Galerias Abreu', 'P.º de la Ribera, 4, 21400 Ayamonte, Huelva', 'galerias-abreu', 2);
-insert into establisments (name, location, slug, id_category) value ('lefties', ' C.C. La Plaza, Av. de la Constitución, 6, 21400 Ayamonte, Huelva', 'lefties', 2);
-insert into establisments (name, location, slug, id_category) value ('Mesón Bar La Ribera', 'P.º de la Ribera, 2, 21400 Ayamonte, Huelva', 'ribera-bar', 3);
+insert into establisments (name, location, slug, id_category) value ('The Jungle - Lounge Bar', 'Av. de Villa Real de San Antonio, 3, 21400 Ayamonte, Huelva', 'jungle-bar', 2);
+insert into establisments (name, location, slug, id_category) value ('Café Bávaro Coffee', 'Calle Enrique Villegas Vélez, 9, 21400 Ayamonte, Huelva', 'cafe-bavaro', 2);
+insert into establisments (name, location, slug, id_category) value ('Sala saona', 'C/ Médico Rey García', 'sala-saona', 2);
+insert into establisments (name, location, slug, id_category) value ('Galerias Abreu', 'P.º de la Ribera, 4, 21400 Ayamonte, Huelva', 'galerias-abreu', 3);
+insert into establisments (name, location, slug, id_category) value ('lefties', ' C.C. La Plaza, Av. de la Constitución, 6, 21400 Ayamonte, Huelva', 'lefties', 3);
+insert into establisments (name, location, slug, id_category) value ('Mesón Bar La Ribera', 'P.º de la Ribera, 2, 21400 Ayamonte, Huelva', 'ribera-bar', 1);
 insert into establisments (name, location, slug, id_category) value ('Playa canela Hotel 4*', 'Av. de la Mojarra, 0, 21409, Huelva', 'playa-canela', 4);
 
 create table if not exists establisments_image(
@@ -89,6 +89,7 @@ create table if not exists establisments_image(
 );
 
 insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/jungleLogo.png',1,true);
+insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/jungle_banner.png',1,false);
 insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/bavaroLogo.png',2,true);
 insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/saonaLogo.jpg',3,true);
 insert into establisments_image (img, id_establishment, favorite) value ('./vistas/img/ayamonte/establisment/galeriasAbreu.jpg',4,true);
@@ -105,6 +106,7 @@ create table if not exists sections(
 );
 
 insert into sections (name, file) value ('banner', './vistas/modulos/sections/banner.php');
+insert into sections (name, file) value ('reservar', './vistas/modulos/sections/reservar.php');
 insert into sections (name, file) value ('galery', './vistas/modulos/sections/gallery.php');
 insert into sections (name, file) value ('catalogo', './vistas/modulos/sections/catalogo.php');
 
@@ -149,6 +151,7 @@ insert into visits (id_user,id_establishment,date_of_booking) value (1,2,current
 insert into visits (id_user,id_establishment,date_of_booking) value (1,6,null);
 insert into visits (id_user,id_establishment,date_of_booking) value (3,2,null);
 insert into visits (id_user,id_establishment,date_of_booking) value (3,3,current_timestamp());
+insert into visits (id_user,id_establishment,date_of_booking) value (2,1,null);
 insert into visits (id_user,id_establishment,date_of_booking) value (3,6,null);
 insert into visits (id_user,id_establishment,date_of_booking) value (3,1,null);
 insert into visits (id_user,id_establishment,date_of_booking) value (1,2,null);
@@ -176,6 +179,9 @@ create table if not exists format_by_section (
   constraint pk_user_establisment PRIMARY KEY (id_format, id_section)
 );
 
+insert into format_by_section (id_format,id_section) value (1,1);
+insert into format_by_section (id_format,id_section) value (2,1);
+
 create table if not exists category_by_section (
   id_category int(4),
   id_section int(4),
@@ -187,15 +193,27 @@ create table if not exists category_by_section (
   constraint pk_categoryXsection PRIMARY KEY (id_category, id_section)
 );
 
+insert into category_by_section (id_category,id_section) value (1,1);
+insert into category_by_section (id_category,id_section) value (2,1);
+insert into category_by_section (id_category,id_section) value (3,1);
+insert into category_by_section (id_category,id_section) value (4,1);
+insert into category_by_section (id_category,id_section) value (1,2);
+insert into category_by_section (id_category,id_section) value (2,2);
+insert into category_by_section (id_category,id_section) value (4,2);
+
 create table if not exists styles (
   id_format int(4),
+  id_establishment int(4),
   id_section int(4),
-  id_datum int (4),
+  datum varchar(255),
   created_at datetime default(current_timestamp),
   updated_at datetime default(current_timestamp),
 
   constraint fk_format_section_datum foreign key (id_format) references formats(id),
   constraint fk_section_format_datum foreign key (id_section) references sections(id),
-  constraint fk_datum_section_format foreign key (id_datum) references datas(id),
-  constraint pk_datas_sections_formats PRIMARY KEY (id_format, id_section, id_datum)
+  constraint fk_establishments_section_format foreign key (id_establishment) references establisments(id),
+  constraint pk_datas_sections_formats PRIMARY KEY (id_format, id_section, id_establishment)
 );
+
+insert into styles (id_format,id_establishment,id_section,datum) value (1,1,1,'./vistas/img/ayamonte/establisment/jungle_banner.png');
+insert into styles (id_format,id_establishment,id_section,datum) value (2,1,1,'The Jungle - Lounge Bar');

@@ -2,22 +2,22 @@
     $establishmentController = new establishmentController();
     $establishments = $establishmentController->getEstablishments('SELECT * FROM establisments where id_owner = '.$_SESSION["usuario"]["id"]);
     //graficos
-    $visitsClientOrNot = $establishmentController->getEstablishments('SELECT if(count(date_of_booking)>0, 1, 0) as client
+    $visitsClientOrNot = $establishmentController->getGraphicsData('SELECT if(count(date_of_booking)>0, 1, 0) as client
                                                                     FROM visits v join establisments e on v.id_establishment = e.id
                                                                     where id_owner = 2
                                                                     group by v.id_user');
                                                                     
-    $visitsByMonth = $establishmentController->getEstablishments('SELECT month(v.created_at) as mes, count(id_user) as visit
+    $visitsByMonth = $establishmentController->getGraphicsData('SELECT month(v.created_at) as mes, count(id_user) as visit
                                                                     FROM visits v join establisments e on v.id_establishment = e.id
                                                                     where id_owner = 2
                                                                     group by month(created_at)');
 
-    $establishmentMoreVisited = $establishmentController->getEstablishments('SELECT e.name, count(v.id) as visits
+    $establishmentMoreVisited = $establishmentController->getGraphicsData('SELECT e.name, count(v.id) as visits
                                                                     FROM visits v join establisments e on v.id_establishment = e.id
                                                                     where id_owner = 2
                                                                     group by e.id');
 
-    $categoriesEstablishment = $establishmentController->getEstablishments('SELECT id_category, c.name as name, count(e.id) as establishmentByCategory 
+    $categoriesEstablishment = $establishmentController->getGraphicsData('SELECT id_category, c.name as name, count(e.id) as establishmentByCategory 
                                                                     FROM establisments e join categories c on c.id=id_category 
                                                                     group by id_category;');
     $visitsClientOrNot_json = json_encode($visitsClientOrNot);
@@ -315,10 +315,10 @@
                             <div class="col-12 col-lg-12">
                                 <div class="section-heading wow fadeInUp" data-wow-delay="100ms">
                                     <h6><button class="btn btn-primary" href="category">Add categoria</button></h6>
-                                    <h2>Categorias</h2>
+                                    <h2>Mis establecimientos</h2>
                                 </div>
                                 <div class="col-12">
-                                    <h3>No hay categorias</h3>
+                                    <h3>No hay establecimientos</h3>
                                 </div>
                             </div>
                         </div>
