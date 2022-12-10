@@ -20,6 +20,7 @@
                 $message_text = Generales::sanar_datos($_POST["message"],"string",$errores,"mensaje");
                 if(empty($errores)){
                     $datos = compact('receiver', 'transmitter', 'message_text');
+                    var_dump($datos);
                     if(MessengerModel::add($datos)):
                         echo "<script>
                                 Swal.fire(
@@ -37,7 +38,18 @@
                                 ).then(() => window.location= 'menu');
                     </script>";
                     endif;
+                } else {
+                    echo "  <script>
+                                Swal.fire(
+                                    'error',
+                                    'Estos son los siguientes errores: <br> $errores',  
+                                ).then(() => window.location= 'message');
+                            </script>";
                 }
             }
+        }
+        public function changeStatus($status, $id){
+            MessengerModel::updated($status, $id);
+            echo "<script> window.location= 'menu' </script>"; 
         }
     }

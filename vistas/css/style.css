@@ -585,11 +585,6 @@ input:focus {
       .classynav ul li.active a::before {
         display: none; } }
 
-.classynav ul li.has-down > a::after,
-.classynav ul li.has-down.active > a::after,
-.classynav ul li.megamenu-item > a::after {
-  color: #2a303b; }
-
 .breakpoint-off .classynav ul li .dropdown,
 .breakpoint-off .classynav ul li .megamenu {
   width: 210px;

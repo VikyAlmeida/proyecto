@@ -60,6 +60,7 @@ create table if not exists messenger_service(
   receiver int(4),
   transmitter int(4),
   message_text varchar(255),
+  status boolean default null,
   constraint fk_receiver foreign key (receiver) references users(id),
   constraint fk_transmitter foreign key (transmitter) references users(id)
 );
@@ -186,6 +187,18 @@ create table if not exists format_by_section (
   constraint fk_format foreign key (id_format) references formats(id),
   constraint fk_section foreign key (id_section) references sections(id),
   constraint pk_user_establisment PRIMARY KEY (id_format, id_section)
+);
+
+create table if not exists valoration(
+  id int(4) auto_increment primary key,
+  id_user int(4),
+  id_establishment int(4),
+  valorate int(1),
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp),
+
+  constraint fk_user_valoration foreign key (id_user) references users(id),
+  constraint fk_establishment_valoration foreign key (id_establishment) references establisments(id)
 );
 
 insert into format_by_section (id_format,id_section) value (1,1);

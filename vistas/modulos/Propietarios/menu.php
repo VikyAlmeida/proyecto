@@ -45,7 +45,6 @@
 <script>
     const partial = localStorage.getItem('partial');
     if (partial === null) localStorage.setItem('partial', 'statistics');
-    console.log(partial);
     document.getElementById(partial).style.display = "flex";
 
     function getPartial (value) {
@@ -179,7 +178,6 @@
         const threeMonthActuals = [ date.getMonth(), date.getMonth()-1<0?meses.length-1:date.getMonth()-1, date.getMonth()-2<0?meses.length-2:date.getMonth()-2 ];
 
         const visitsByMonth = <?= $visitsByMonth_json ?>;
-        console.log(visitsByMonth);
         let result = visitsByMonth.map((value) => threeMonthActuals.indexOf(parseInt(value.mes,10)-1)>-1 ? value : false);
         result = result.filter(value => value !== false);
         result = threeMonthActuals.sort(( a, b ) => { return a - b; }).map((mes) => { 
@@ -346,7 +344,105 @@
     </div>
 </div>
 
-<div id="message" style="display: none;">
-    <h1>Mensajeria</h1>
-
+<div id="messages" style='display:none;'>
+    <?php if ($messages): ?>
+        <div class="col-12 col-lg-12" style='margin:0.1em'>
+            <section class="roberto-about-area" style="
+                        padding:1em; 
+                        border-radius: 3em; 
+                        height:30em; "
+            >
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-lg-12">
+                            <div>
+                                <h6><a class="btn btn-primary" href="message-new">Enviar mensaje</a></h6>
+                                <h2>Mensajes</h2>
+                            </div>
+                            <div class="col-12">
+                                <table class="table" id='tableMessage' style='padding:5em;margin-bottom: 5em;'>
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>DNI</th>
+                                            <th>Nombre</th>
+                                            <th>Mensaje</th>
+                                            <th colspan="2" style='text-align:center;'>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                            foreach ($messages as $message):
+                                            $user = $userController->getUser('id', $message["transmitter"]);
+                                            if ($message['status']):
+                                                $color = '#88f7ab85';
+                                            elseif ($message['status'] === null):
+                                                $color = '#cee3fd85';
+                                            else:
+                                                $color = '#dc282885';
+                                            endif;
+                                        ?>
+                                            <tr style="background-color: <?= $color ?>; height:0.5em">
+                                                <td><?=$user['dni']?></td>
+                                                <td><?=$user['name']?></td>
+                                                <td><?=$message['message_text']?></td>
+                                                <?php if ($message['status'] === null): ?>
+                                                    <td style='text-align:right;width:15%;'>
+                                                        <form action="ayuda-message" method="post">
+                                                            <input type="hidden" name="accion" value="aceptar">
+                                                            <input type="hidden" name="id" value="<?=$message['id']?>">
+                                                            <input type="hidden" name="ayuda" value="mensajeriaAcciones">
+                                                            <button type="submit" class="btn btn-outline-success">
+                                                                <i class="fa fa-check"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    <td style='text-align:left;width:15%'>
+                                                        <form action="ayuda-message" method="post">
+                                                            <input type="hidden" name="accion" value="declinar">
+                                                            <input type="hidden" name="id" value="<?=$message['id']?>">
+                                                            <input type="hidden" name="ayuda" value="mensajeriaAcciones">
+                                                            <button type="submit" class="btn btn-outline-danger">
+                                                                <i class="fa fa-times"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                <?php else: ?>
+                                                    <td colspan="2" style='text-align:center;width:15%;'>
+                                                        <?= $message['status'] ? 'Aceptada':'Declinada';  ?>
+                                                    </td>
+                                                <?php endif; ?>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    <?php else: ?>
+        <div class="col-12 col-lg-6" style='margin:0.1em; margin:0 auto;'>
+                <section class="roberto-about-area" style="
+                        padding:1em; 
+                        border-radius: 3em; 
+                        height:30em; "
+                >
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-12 col-lg-12">
+                                <div>
+                                    <h6><a class="btn btn-primary" href="message-new">Enviar mensaje</a></h6>
+                                    <h2>Mensajes</h2>
+                                </div>
+                                <div class="col-12">
+                                    <h3>No hay mensajes</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    <?php endif; ?>
 </div>

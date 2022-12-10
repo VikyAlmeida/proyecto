@@ -4,6 +4,7 @@
     class EstablishmentModel {
         static $tabla = 'establisments';
         static $tabla_image = 'establisments_image';
+        static $tabla_valoration = 'valoration';
 
         public static function getEstablishments($query){            
             $conexion = Conectar::conectate();
@@ -84,5 +85,16 @@
             if($resultado->execute(array($datos["name"],$datos["description"],$datos["category_id"],$id)))
             {return true;}
             else{return false;}
+        }
+        public static function valorate($datos){
+            $conexion = Conectar::conectate();
+            $tabla = self::$tabla_valoration;
+
+            $query = "insert into".$tabla." (id_user, id_establishment, valorate) value (?,?,?);";
+            $result = $conexion->prepare($query);
+            if($result->execute(array($datos["idUser"], $datos["idEstablishment"], $datos["value"])))
+            {return true;}
+            else
+            {return false;}
         }
     }

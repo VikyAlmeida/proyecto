@@ -29,9 +29,21 @@
             $conexion = Conectar::conectate();
             $tabla = self::$tabla;
             
-            $query = "Insert into $tabla (name) values (?)";
+            $query = "Insert into $tabla (receiver,transmitter,message_text) values (?,?,?)";
             $result = $conexion->prepare($query);
-            if($result->execute(array($datos["name"])))
+            if($result->execute(array($datos["receiver"], $datos["transmitter"], $datos["message_text"])))
+            {return true;}
+            else
+            {return false;}
+        }
+
+        public static function updated($status, $id) {
+            $conexion = Conectar::conectate();
+            $tabla = self::$tabla;
+            
+            $query = "UPDATE $tabla SET status = ? WHERE id = ?";
+            $result = $conexion->prepare($query);
+            if($result->execute(array($status, $id)))
             {return true;}
             else
             {return false;}

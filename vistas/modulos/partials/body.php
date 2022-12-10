@@ -1,5 +1,4 @@
 <body>
-    
     <?php
         include './vistas/modulos/partials/nav.php';
         $routes = new ControllerRutas();

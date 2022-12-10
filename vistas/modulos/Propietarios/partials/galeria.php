@@ -34,13 +34,6 @@
         }
     </style>
 <script>
-    let options = {
-        numberPerPage:1, 
-        goBar:true, 
-        pageCounter:true
-    };
-	
-    paginate.init('#gallery', options);
     function show(id, color){
         document.getElementById(id).style.backgroundColor = 'white';
         document.getElementById(id).innerHTML = `<i class="fa fa-heart" style="color:${color}; font-size:90px;margin:0 auto"></i>`;

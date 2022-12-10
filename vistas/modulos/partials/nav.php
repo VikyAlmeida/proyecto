@@ -1,3 +1,8 @@
+<script>
+    function load() {
+        localStorage.setItem('page', 1);
+    }
+</script>
 <header class="header-area">
         <div class="search-form d-flex align-items-center">
             <div class="container">
@@ -31,10 +36,10 @@
                             <div class="classynav">
                                 <ul id="nav">
                                     <li><a class="active" href="inicio">Inicio</a></li>
-                                    <li><a href="categorias">Categorias</a></li>
-                                    <li><a href="establecimientos">Establecimientos</a></li>
+                                    <li><a href="categorias" onclick="load()">Categorias</a></li>
+                                    <li><a href="establecimientos" onclick="load()">Establecimientos</a></li>
                                 <?php if (isset($_SESSION['usuario'])): ?>
-                                    <li><a href="#">- Mi area</a>
+                                    <li><a href="#">Mi area</a>
                                         <ul class="dropdown">
                                             <li><a href="perfil">- Perfil</a></li>
                                             <?php if ($_SESSION['usuario']["id_role"] == 1): ?><li><a href="menu">- Area admin</a></li>

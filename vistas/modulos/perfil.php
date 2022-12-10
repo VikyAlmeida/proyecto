@@ -67,7 +67,7 @@
         <div class="container"style="border: 1px solid black;padding:1em; border-radius: 3em">
             <div class="row align-items-center">
                 <div class="col-12 col-lg-12">
-                    <div class="section-heading wow fadeInUp bt-25" data-wow-delay="100ms">
+                    <div class="section-heading wow fadeInUp bt-25" data-wow-delay="100ms" style="margin-left: 1em;">
                         <h6><a class="btn btn-primary" href="perfil-edit">Editar</a></h6>
                         <h2><?= $user['name'] ?></h2>
                         <h4 style='color:#46889F '><?= $role['name'] ?></h4>

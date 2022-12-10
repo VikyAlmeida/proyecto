@@ -6,7 +6,7 @@ class ControllerRutas{
             "comunes" => ['inicio','categorias','establecimientos'],
             "noLogueado" => ['login', 'registro'],
             "logueado" => [
-                "comunes" => ['logout','perfil'],
+                "comunes" => ['logout','perfil', 'message'],
                 "admin" => ['menu', 'categorias','redesSociales','secciones', 'formato'],
                 "propietario" => ['menu', 'configuracion', 'miLocal'],
             ],
@@ -22,6 +22,8 @@ class ControllerRutas{
 
         if(isset($_GET["ruta"])) {
             $ruta = explode("-", $_GET["ruta"])[0];
+            if ($ruta == "ayuda"): include("./vistas/modulos/partials/".$ruta.".php"); endif;
+
             if (!isset($_SESSION['usuario']) && in_array($ruta, $rutas['noLogueado'])): include("./vistas/modulos/".$ruta.".php");
             elseif (isset($_SESSION['usuario'])):
                 if (in_array($ruta, $rutas['logueado']['admin']) && $role == 1): include("./vistas/modulos/Admin/".$ruta.".php");

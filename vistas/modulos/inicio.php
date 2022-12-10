@@ -128,7 +128,7 @@
                         <?php endforeach; ?>
                     </div>
                     <div class="section-heading wow" style="text-align:right;">
-                        <a href="#" class="btn roberto-btn">Ver mas</a>
+                        <a href="categorias" class="btn roberto-btn">Ver mas</a>
                     </div>
                 </div>
             </div>

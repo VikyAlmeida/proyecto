@@ -19,7 +19,7 @@
     $users = $userController->getUsers('SELECT id_role, count(id_role) as "usersByRole" FROM users group by id_role');
     $users_json = json_encode($users);
 
-    $establishmentController = new establishmentController();
+    $establishmentController = new EstablishmentController();
     $establishmentTotal = $establishmentController->getGraphicsData('SELECT count(id) FROM establisments');
     $establishment = $establishmentController->getGraphicsData('SELECT count(id) as establishemnByCreatedDate, month(created_at) as mes FROM establisments e group by (month(created_at)) Order by created_at');
     $establishment_json = json_encode($establishment);
@@ -49,7 +49,6 @@
 <script>
     const partial = localStorage.getItem('partial');
     if (partial === null) localStorage.setItem('partial', 'statistics');
-    console.log(partial);
     document.getElementById(partial).style.display = "flex";
 
     function getPartial (value) {
@@ -582,7 +581,7 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-lg-12">
                             <div>
-                                <h6><a class="btn btn-primary" href="formato-new">Enviar mensaje</a></h6>
+                                <h6><a class="btn btn-primary" href="message-new">Enviar mensaje</a></h6>
                                 <h2>Mensajes</h2>
                             </div>
                             <div class="col-12">
@@ -597,23 +596,46 @@
                                     </thead>
                                     <tbody>
                                         <?php 
-                                            foreach ($messages as $menssage):
+                                            foreach ($messages as $message):
                                             $user = $userController->getUser('id', $message["transmitter"]);
+                                            if ($message['status']):
+                                                $color = '#88f7ab85';
+                                            elseif ($message['status'] === null):
+                                                $color = '#cee3fd85';
+                                            else:
+                                                $color = '#dc282885';
+                                            endif;
                                         ?>
-                                            <tr>
+                                            <tr style="background-color: <?= $color ?>; height:0.5em">
                                                 <td><?=$user['dni']?></td>
                                                 <td><?=$user['name']?></td>
-                                                <td><?=$menssage['message_text']?></td>
-                                                <td style='text-align:right;width:15%;'>
-                                                    <a href='formato-<?=$socialNetwork['id']?>-edit' type="button" class="btn btn-outline-secondary">
-                                                        <i class="fa-duotone fa-check"></i>
-                                                    </a>
-                                                </td>
-                                                <td style='text-align:left;width:15%'>
-                                                    <a href='formato-<?=$socialNetwork['id']?>-deleted' type="button" class="btn btn-outline-secondary">
-                                                        <i class="fa-solid fa-xmark"></i>
-                                                    </a>
-                                                </td>
+                                                <td><?=$message['message_text']?></td>
+                                                <?php if ($message['status'] === null): ?>
+                                                    <td style='text-align:right;width:15%;'>
+                                                        <form action="ayuda-message" method="post">
+                                                            <input type="hidden" name="accion" value="aceptar">
+                                                            <input type="hidden" name="id" value="<?=$message['id']?>">
+                                                            <input type="hidden" name="ayuda" value="mensajeriaAcciones">
+                                                            <button type="submit" class="btn btn-outline-success">
+                                                                <i class="fa fa-check"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    <td style='text-align:left;width:15%'>
+                                                        <form action="ayuda-message" method="post">
+                                                            <input type="hidden" name="accion" value="declinar">
+                                                            <input type="hidden" name="id" value="<?=$message['id']?>">
+                                                            <input type="hidden" name="ayuda" value="mensajeriaAcciones">
+                                                            <button type="submit" class="btn btn-outline-danger">
+                                                                <i class="fa fa-times"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                <?php else: ?>
+                                                    <td colspan="2" style='text-align:center;width:15%;'>
+                                                        <?= $message['status'] ? 'Aceptada':'Declinada';  ?>
+                                                    </td>
+                                                <?php endif; ?>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>
@@ -625,19 +647,17 @@
             </section>
         </div>
     <?php else: ?>
-        <div class="col-12 col-lg-6" style='margin:1em'>
+        <div class="col-12 col-lg-6" style='margin:0.1em; margin:0 auto;'>
                 <section class="roberto-about-area" style="
-                        border: 1px solid black;
                         padding:1em; 
                         border-radius: 3em; 
-                        height:30em; 
-                        border-color:rgba(255, 206, 86, 1)"
-            >
+                        height:30em; "
+                >
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-12 col-lg-12">
                                 <div>
-                                    <h6><button class="btn btn-primary" href="newSocialNetwork">Enviar mensaje</button></h6>
+                                    <h6><a class="btn btn-primary" href="message-new">Enviar mensaje</a></h6>
                                     <h2>Mensajes</h2>
                                 </div>
                                 <div class="col-12">

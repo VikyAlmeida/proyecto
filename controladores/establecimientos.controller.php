@@ -88,7 +88,6 @@ class EstablishmentController{
             EstablishmentModel::getEstablishmentImage($query);
         endif;
     }
-    
     public function edit($id){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $ruta = $_GET['ruta'];
@@ -115,6 +114,29 @@ class EstablishmentController{
                    </script>";
                 endif;
             }
+        }
+    }
+    public function valoration($value, $idEstablishment){
+        $idUser = $_SESSION["usuario"]["id"];
+        if(empty($errores)){
+            $datos = compact('value', 'idEstablishment', 'idUser');
+            if(EstablishmentModel::addEstablishment($datos)):
+                echo "<script>
+                        Swal.fire(
+                        'Añadido!',
+                        'Se ha Añadido el establecimiento con exito.',
+                        'success'
+                    ).then(() => window.location= 'menu');
+                    </script>"; 
+            else:
+                echo "<script>
+                        Swal.fire(
+                            'error',
+                            'Oops...!',
+                            'Operación inválida.',  
+                            ).then(() => window.location= 'menu');
+                </script>";
+            endif;
         }
     }
 }
