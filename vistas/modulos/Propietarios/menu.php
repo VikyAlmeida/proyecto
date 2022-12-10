@@ -289,7 +289,7 @@
                     <thead class="table-dark">
                         <tr>
                             <th>Imagen</th>
-                            <th>Name</th>
+                            <th>Nombre</th>
                             <th colspan="3" style='text-align:center;'>Acciones</th>
                         </tr>
                     </thead>

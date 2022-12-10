@@ -2,6 +2,9 @@
     $categoryController = new CategoryController();
     $categories = $categoryController->getCategories(null);
 
+    $messengerController = new MessengerController();
+    $messages = $messengerController->getMessages("SELECT * FROM messenger_service where receiver like '".$_SESSION["usuario"]["id"]."'");
+
     $formatController = new FormatController();
     $formats = $formatController->getFormats(null);
 
@@ -568,7 +571,7 @@
 </div>
 
 <div id="messages" style='display:none;'>
-    <?php if ($formats): ?>
+    <?php if ($messages): ?>
         <div class="col-12 col-lg-12" style='margin:0.1em'>
             <section class="roberto-about-area" style="
                         padding:1em; 
@@ -586,24 +589,29 @@
                                 <table class="table" id='tableMessage' style='padding:5em;margin-bottom: 5em;'>
                                     <thead class="table-dark">
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
+                                            <th>DNI</th>
+                                            <th>Nombre</th>
+                                            <th>Mensaje</th>
                                             <th colspan="2" style='text-align:center;'>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($formats as $format): $nombre = $format['name'];?>
+                                        <?php 
+                                            foreach ($messages as $menssage):
+                                            $user = $userController->getUser('id', $message["transmitter"]);
+                                        ?>
                                             <tr>
-                                                <td><?=$format['id']?></td>
-                                                <td><?=$format['name']?></td>
+                                                <td><?=$user['dni']?></td>
+                                                <td><?=$user['name']?></td>
+                                                <td><?=$menssage['message_text']?></td>
                                                 <td style='text-align:right;width:15%;'>
                                                     <a href='formato-<?=$socialNetwork['id']?>-edit' type="button" class="btn btn-outline-secondary">
-                                                        Editar
+                                                        <i class="fa-duotone fa-check"></i>
                                                     </a>
                                                 </td>
                                                 <td style='text-align:left;width:15%'>
                                                     <a href='formato-<?=$socialNetwork['id']?>-deleted' type="button" class="btn btn-outline-secondary">
-                                                        Eliminar
+                                                        <i class="fa-solid fa-xmark"></i>
                                                     </a>
                                                 </td>
                                             </tr>

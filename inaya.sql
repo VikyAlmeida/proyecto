@@ -55,6 +55,14 @@ insert into users (dni, name, email, password, id_role) value ('29628253K', 'Vic
 insert into users (dni, name, email, password, id_role) value ('62165091R', 'Victoria Almeida Calderon', 'victoria.almeida.calderon@gmail.com', '$2y$10$1I247TMs0jORANsj2hyVG.E4LcwtH8vyvQ7Y91SWRUEISwMGDYmtK', 2);
 insert into users (dni, name, email, password, id_role) value ('55762442T', 'Victoria Almeida Calderon', 'victoria.almeida.calderon@ieslaarboleda.com', '$2y$10$1I247TMs0jORANsj2hyVG.E4LcwtH8vyvQ7Y91SWRUEISwMGDYmtK', 3);
 
+create table if not exists messenger_service(
+  id int(4) auto_increment primary key,
+  receiver int(4),
+  transmitter int(4),
+  message_text varchar(255),
+  constraint fk_receiver foreign key (receiver) references users(id),
+  constraint fk_transmitter foreign key (transmitter) references users(id)
+);
 
 create table if not exists establisments(
   id int(4) auto_increment primary key,

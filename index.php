@@ -9,6 +9,7 @@
     include('./controladores/formato.controller.php');
     include('./controladores/rol.controller.php');
     include('./controladores/establecimientos.controller.php');
+    include('./controladores/mensajeria.controller.php');
 
     include('./modelos/usuario.model.php');
     include('./modelos/categoria.model.php');
@@ -17,6 +18,7 @@
     include('./modelos/redes.sociales.model.php');
     include('./modelos/rol.model.php');
     include('./modelos/establecimientos.model.php');
+    include('./modelos/mensajeria.model.php');
 
     session_start();
     $template = new ControllerTemplate();
