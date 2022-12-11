@@ -7,17 +7,17 @@ class PostController{
         return $registros;
     }
     public static function getPost($field, $value) {
-        $registro = PostModel::getPost("posts",$field, $value);
+        $registro = PostModel::getPost($field, $value);
         return $registro;
     }
     public function create() {
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $title = Generales::sanar_datos($_POST["title"],"string",$errores,"nombre");
-            $text = Generales::sanar_datos($_POST["text"],"string",$errores,"nombre");
-            $id_establishment = Generales::sanar_datos($_POST["id_establishment"],"string",$errores,"nombre");
-            $show = Generales::sanar_datos($_POST["show"],"string",$errores,"nombre");
-            $img =  './vistas/img/establishment/'.$id_establishment.'/posts/'.Generales::foto($_FILES["file"], './vistas/img/Posts/');
-            if(empty($errores)){
+            $title = Generales::sanar_datos($_POST["title"],"string",$errores,"titulo");
+            $text = Generales::sanar_datos($_POST["text"],"string",$errores,"texto");
+            $id_establishment = (int)$_POST["id_establishment"];
+            $show = isset($_POST["show"]) ? 1 : 0;
+            $img =  './vistas/img/ayamonte/establisment/'.$id_establishment.'/posts/'.Generales::foto($_FILES["file"], './vistas/img/ayamonte/establisment/'.$id_establishment.'/posts/');
+            if(empty($errores) && $errores !== ''){
                 $datos = compact('title', 'text', 'id_establishment', 'show', 'img');
                 if(PostModel::add($datos)):
                     echo "<script>
@@ -36,36 +36,70 @@ class PostController{
                              ).then(() => window.location= 'menu');
                    </script>";
                 endif;
+            } else {
+                echo "<script>
+                        Swal.fire(
+                        'Oops...!',
+                        'Los datos introducidos son incorrectos, estos son los siguientes errores: <br> $errores',
+                        'error'
+                    ).then(() => window.location= 'menu');
+                    </script>"; 
             }
         }
     }
 
-    public function updated($id) {
+    public function updated() {
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $title = Generales::sanar_datos($_POST["title"],"string",$errores,"titulo");
-            $text = Generales::sanar_datos($_POST["text"],"string",$errores,"nombre");
-            $id_establishment = Generales::sanar_datos($_POST["id_establishment"],"string",$errores,"nombre");
-            $show = Generales::sanar_datos($_POST["show"],"string",$errores,"nombre");
-            $img =  './vistas/img/establishment/'.$id_establishment.'/posts/'.Generales::foto($_FILES["file"], './vistas/img/Posts/');
-            
-            if(empty($errores)){
-                $datos = compact('title', 'text', 'id_establishment', 'show', 'img');
-                if(PostModel::updated($datos,$id)):
-                    echo "<script>
-                            Swal.fire(
-                            'Actualizado!',
-                            'Se ha actualizado la red social con exito.',
-                            'success'
-                        ).then(() => window.location= 'menu');
-                        </script>"; 
+            if (!isset($_POST['ayuda']) or $_POST['ayuda'] != 'showPost'):
+                $title = Generales::sanar_datos($_POST["title"],"string",$errores,"titulo");
+                $text = Generales::sanar_datos($_POST["text"],"string",$errores,"texto");
+                $id = $_POST['id'];
+                $show = isset($_POST["show"]) ? 1 : 0;
+                if($_FILES["file"]["size"]>0): 
+                    $img =  './vistas/img/ayamonte/establisment/'.$_POST["id_establishment"].'/posts/'.Generales::foto($_FILES["file"], './vistas/img/ayamonte/establisment/'.$_POST["id_establishment"].'/posts/');
                 else:
-                    echo "<script>
-                           Swal.fire(
-                             'error',
-                             'Oops...!',
-                             'Operación inválida.',  
-                             ).then(() => window.location= 'menu');
-                   </script>";
+                    $img = $_POST['img'];
+                endif;
+            endif;
+
+            if(!isset($errores) or (empty($errores) && $errores !== '')){
+                if (isset($_POST['ayuda']) && $_POST['ayuda'] == 'showPost'):
+                    if(PostModel::showAction($_POST['id'], $_POST['accion'])):
+                        echo "<script>
+                                Swal.fire(
+                                'Actualizado!',
+                                'Se ha actualizado la post con exito.',
+                                'success'
+                            ).then(() => window.location= 'menu');
+                            </script>"; 
+                    else:
+                        echo "<script>
+                            Swal.fire(
+                                'error',
+                                'Oops...!',
+                                'Operación inválida.',  
+                                ).then(() => window.location= 'menu');
+                    </script>";
+                    endif;
+                else:
+                    $datos = compact('title', 'text', 'show', 'img');
+                    if(PostModel::updated($datos, $id)):
+                        echo "<script>
+                                Swal.fire(
+                                'Actualizado!',
+                                'Se ha actualizado la post con exito.',
+                                'success'
+                            ).then(() => window.location= 'menu');
+                            </script>"; 
+                    else:
+                        echo "<script>
+                            Swal.fire(
+                                'error',
+                                'Oops...!',
+                                'Operación inválida.',  
+                                ).then(() => window.location= 'menu');
+                    </script>";
+                    endif;
                 endif;
             }
         }

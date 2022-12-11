@@ -7,8 +7,13 @@ class Generales{
             switch($tipo)
             {
                 case "string":
-                    $campo = filter_var(stripslashes($campo),FILTER_SANITIZE_STRING);
-                    return $campo;
+                    if (empty($campo)) {
+                        $errores.= $nombre." esta vacio";
+                    }
+                    else {
+                        $campo = filter_var(stripslashes($campo),FILTER_SANITIZE_STRING);
+                        return $campo;
+                    }
                 break;
                 case "email":
                     $campo = filter_var($campo,FILTER_SANITIZE_EMAIL);
@@ -61,7 +66,7 @@ class Generales{
         if(!empty($campo))
         {
             ($campo);
-            if($campo["size"]>=0)
+            if($campo["size"]>0)
             {
                 $comprueba = @getimagesize($campo["tmp_name"]);
                 if($comprueba != false){

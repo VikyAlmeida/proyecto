@@ -29,7 +29,7 @@ class ControllerRutas{
                 if (in_array($ruta, $rutas['logueado']['admin']) && $role == 1): include("./vistas/modulos/Admin/".$ruta.".php");
                 elseif (in_array($ruta, $rutas['logueado']['propietario']) && $role == 2): include("./vistas/modulos/Propietarios/".$ruta.".php");
                 elseif (in_array($ruta, $rutas['logueado']['comunes'])): include("./vistas/modulos/".$ruta.".php");
-                else: include("./vistas/modulos/inicio.php");
+                else: include("./vistas/modulos/".$ruta.".php");
                 endif;
             elseif (in_array($ruta, $rutas['comunes'])): include("./vistas/modulos/".$ruta.".php");
             else:

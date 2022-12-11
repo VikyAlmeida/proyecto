@@ -4,6 +4,7 @@
     }
 
     $establishmentController = new EstablishmentController();
+    $publicacionesController = new PostController();
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if ($_POST['ayuda'] === 'mensajeriaAcciones'):
@@ -25,6 +26,9 @@
 
         elseif($_POST['ayuda'] === 'addImage'):
             echo $establishmentController->addPhoto($_POST['id'], $_FILES["file"]);
+
+        elseif($_POST['ayuda'] === 'showPost'):
+            echo $publicacionesController->updated($_POST['id'], 'show', $_POST['accion']);
 
         elseif($_POST['ayuda'] === 'valoration'):
             $establishmentController->valoration($_POST['value'], $_POST['establishment']);

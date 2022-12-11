@@ -1,4 +1,10 @@
 <script>
+    const dataTablePost = new DataTable('#tablePost', {
+        searchable: true,
+        perPageSelect: false,
+        perPage: 5
+    });
+
     const dataTableCategory = new DataTable('#tableCategories', {
         searchable: true,
         perPageSelect: false,

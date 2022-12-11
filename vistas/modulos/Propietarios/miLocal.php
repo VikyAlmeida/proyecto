@@ -40,6 +40,7 @@
     $slug = substr($slug, 0, -1);
     $local = new establishmentController();
     $miLocal = $local->getEstablishments('SELECT * FROM establisments where slug like "'.$slug.'"');
+    $_SESSION['local'] = $miLocal;
 ?>
 
 <div style="background-color:#0E2737;padding:5em;color:white">

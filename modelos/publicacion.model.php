@@ -29,7 +29,8 @@
             $conexion = Conectar::conectate();
             $tabla = self::$tabla;
             
-            $query = "Insert into $tabla ('title', 'text', 'id_establishment', 'show', 'img') values (?,?,?,?,?)";
+            $query = "INSERT INTO posts (title, text, id_establishment, showPost, img) values (?,?,?,?,?);";
+            var_dump($datos);
             $result = $conexion->prepare($query);
             if($result->execute(array($datos["title"], $datos["text"], $datos["id_establishment"], $datos["show"], $datos["img"])))
             {return true;}
@@ -37,13 +38,25 @@
             {return false;}
         }
 
-        public static function updated($status, $id) {
+        public static function updated($datos, $id) {
             $conexion = Conectar::conectate();
             $tabla = self::$tabla;
             
             $query = "UPDATE $tabla SET title = ?, text = ?, img = ?, showPost = ? WHERE id = ?";
             $result = $conexion->prepare($query);
-            if($result->execute(array($status, $id)))
+            if($result->execute(array($datos["title"], $datos["text"], $datos["img"], $datos["show"], $id)))
+            {return true;}
+            else
+            {return false;}
+        }
+
+        public static function showAction($id, $show) {
+            $conexion = Conectar::conectate();
+            $tabla = self::$tabla;
+            echo $id . ''. $show;
+            $query = "UPDATE $tabla SET showPost = ? WHERE id = ?";
+            $result = $conexion->prepare($query);
+            if($result->execute(array($show, $id)))
             {return true;}
             else
             {return false;}

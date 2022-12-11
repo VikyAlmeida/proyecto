@@ -94,7 +94,7 @@
 </section>
 
 <!-- Imagenes aleatorias -->
-<section class="roberto-blog-area section-padding-100-0">
+<section class="roberto-blog-area >
     <div class="container">
         <div class="row">
             <!-- Section Heading -->
@@ -178,7 +178,7 @@
 </div>
 
 <!-- POST -->
-<section class="roberto-testimonials-area section-padding-100-0">
+<section class="roberto-testimonials-area mt-50" >
     <div class="container">
         <div class="row align-items-center">
             <div class="col-12 col-md-6">

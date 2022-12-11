@@ -38,6 +38,7 @@
                                     <li><a class="active" href="inicio">Inicio</a></li>
                                     <li><a href="categorias" onclick="load()">Categorias</a></li>
                                     <li><a href="establecimientos" onclick="load()">Establecimientos</a></li>
+                                    
                                 <?php if (isset($_SESSION['usuario'])): ?>
                                     <li><a href="#">Mi area</a>
                                         <ul class="dropdown">
