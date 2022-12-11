@@ -29,7 +29,6 @@
             $result->execute();
             return $result->fetch();
         }
-        
         public static function getEstablishmentImage($query){            
             $conexion = Conectar::conectate();
 
@@ -93,6 +92,18 @@
             $query = "insert into".$tabla." (id_user, id_establishment, valorate) value (?,?,?);";
             $result = $conexion->prepare($query);
             if($result->execute(array($datos["idUser"], $datos["idEstablishment"], $datos["value"])))
+            {return true;}
+            else
+            {return false;}
+        }
+        public static function addPhoto($datos){
+            $conexion = Conectar::conectate();
+            $tabla = self::$tabla_image;
+            var_dump($datos);
+            
+            $query = "insert into ".$tabla." (img, id_establishment) value (?,?);";
+            $result = $conexion->prepare($query);
+            if($result->execute(array($datos["image"], $datos["id"])))
             {return true;}
             else
             {return false;}

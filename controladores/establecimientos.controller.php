@@ -71,20 +71,22 @@ class EstablishmentController{
         }
     }
     public function favoriteImage($idImg){
-        $ruta = $_GET['ruta'];
         $query = 'SELECT * FROM establisments_image where id = '.$idImg.'';
         $img = EstablishmentModel::getEstablishmentImage($query);
+        var_dump($img[0]['favorite']);
 
-        if ($img['favorite']):
+        if ($img[0]['favorite']):
             echo "<script>
                    Swal.fire(
                      'error',
                      'Oops...!',
                      'Operación inválida. Tiene que haber minimo una imagen favorita',  
-                     ).then(() => window.location= '$ruta');
+                     ).then(() => window.location= 'menu');
            </script>";
         else:
-            $query = 'UPDATE $establisments_image SET favorite = 1 WHERE id like '.$idImg;
+            $query = 'UPDATE establisments_image SET favorite = 0 where id_establishment = '.$img['id_establishment'];
+            EstablishmentModel::getEstablishmentImage($query);
+            $query = 'UPDATE establisments_image SET favorite = 1 WHERE id like '.$idImg;
             EstablishmentModel::getEstablishmentImage($query);
         endif;
     }
@@ -135,6 +137,38 @@ class EstablishmentController{
                             'Oops...!',
                             'Operación inválida.',  
                             ).then(() => window.location= 'menu');
+                </script>";
+            endif;
+        }
+    }
+    public function addPhoto($id, $file){
+        if($file["size"]>=0){
+            return "<script>
+                    Swal.fire(
+                        'error',
+                        'Oops...!',
+                        'Operación inválida.',  
+                        ).then(() => window.location= 'menu');
+            </script>";
+        }
+        $image =  './vistas/img/ayamonte/establisment/'.$_POST["id"].'/'.Generales::foto($file, './vistas/img/ayamonte/establisment/'.$_POST["id"].'/');
+        if(empty($errores)){
+            $datos = compact('id', 'image');
+            if(EstablishmentModel::addPhoto($datos)):
+                echo "<script>
+                        Swal.fire(
+                        'Añadido!',
+                        'Se ha Añadido la categoria con exito.',
+                        'success'
+                    ).then(() => window.location= 'menu');
+                    </script>"; 
+            else:
+                echo "<script>
+                        Swal.fire(
+                            'error',
+                            'Oops...!',
+                            'Operación inválida.',  
+                            ).then(() => window.location= 'configuration');
                 </script>";
             endif;
         }

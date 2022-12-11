@@ -3,12 +3,12 @@ class ControllerRutas{
     public function ctrRuta()
     {
         $rutas = [
-            "comunes" => ['inicio','categorias','establecimientos'],
+            "comunes" => ['inicio','categorias','establecimientos', 'establecimiento'],
             "noLogueado" => ['login', 'registro'],
             "logueado" => [
                 "comunes" => ['logout','perfil', 'message'],
                 "admin" => ['menu', 'categorias','redesSociales','secciones', 'formato'],
-                "propietario" => ['menu', 'configuracion', 'miLocal'],
+                "propietario" => ['menu', 'configuracion', 'miLocal', 'posts'],
             ],
         ];
 

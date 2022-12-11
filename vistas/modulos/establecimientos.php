@@ -8,6 +8,7 @@
     let page = localStorage.getItem('page') || 1; //pagina en la que estoy
     const pageSize = 6;
     const elements = <?= $establishments_json ?>;
+    console.log(elements);
     const pages = Math.ceil(elements.length/pageSize); // paginas que necesito
     let init = (page-1)*pageSize;
     let finish = init + pageSize; 
@@ -60,7 +61,7 @@
                             document.write(`                <h6>${elements[i].nameCategory}</h6>`);
                             document.write(`                <p>${elements[i].location}</p>`);
                             document.write(`            </div>`);
-                            document.write(`            <a href="#" class="btn project-btn">Ver mas <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>`);
+                            document.write(`            <a href="establecimiento-${elements[i].slug}" class="btn project-btn">Ver mas <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>`);
                             document.write(`        </div>`);
                             document.write(`    </div>`);
                             document.write(`</div>`);
@@ -68,7 +69,7 @@
                     }
                 </script>
             </div>
-            <nav class="roberto-pagination wow fadeInUp mb-100" data-wow-delay="1000ms">
+            <nav class="roberto-pagination fadeInUp mb-100" data-wow-delay="1000ms">
                 <ul class="pagination">
                     <li class="page-item"><a class="page-link" onclick="before(page)"><i class="fa fa-angle-left"></i> Atras</a></li>
                     <script>

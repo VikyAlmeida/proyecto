@@ -278,7 +278,7 @@
         <div class="container">
             <div class="row">
                 <div class="section-heading">
-                    <h6><a class="btn btn-primary" href="categorias-new">Añadir establecimiento</a></h6>
+                    <h6><a class="btn btn-primary" href="establishment-new">Añadir establecimiento</a></h6>
                     <h2>Mis establecimientos</h2>
                 </div>
             </div>
@@ -296,7 +296,7 @@
                             $img = $establishmentController->getImageFavorite($establishment['id']);                                        
                         ?>
                             <tr>
-                                <td><img src="<?=$img['img']?>" alt="categoria<?=$establishment['id']?>" width='250' style='height:200px'></td>
+                                <td><img src="<?=$img['img']?>" alt="local<?=$establishment['slug']?>" width='250' style='height:200px'></td>
                                 <td><?=$establishment['name']?></td>
                                 <td style='text-align:right;width:15%;'>
                                     <a href='miLocal-<?=$establishment['slug']?>-configuration' type="button" class="btn btn-outline-secondary">

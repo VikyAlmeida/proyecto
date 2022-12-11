@@ -60,12 +60,15 @@ class Generales{
         $rand = rand();
         if(!empty($campo))
         {
-            p($campo);
-            if($campo["size"]>0)
+            ($campo);
+            if($campo["size"]>=0)
             {
                 $comprueba = @getimagesize($campo["tmp_name"]);
                 if($comprueba != false){
                     $ruta = $rutaFolder."".$rand."".$campo["name"];
+                    if (!file_exists($rutaFolder)) {
+                        mkdir($rutaFolder);
+                    }
                     move_uploaded_file($campo["tmp_name"],$ruta);
                     $campo = $campo["name"];
                     $campo = $rand."".$campo;
@@ -83,7 +86,7 @@ class Generales{
         {
             if($campo["type"] == 'application/octet-stream')
             {
-                p($campo);
+                ($campo);
                 $ruta = $rutaFolder."".$campo["name"];
                 move_uploaded_file($campo["tmp_name"],$ruta);
                 return  $campo["name"];

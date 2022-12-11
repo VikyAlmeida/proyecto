@@ -90,7 +90,7 @@ insert into establisments (description, name, location, slug, id_category) value
 
 create table if not exists establisments_image(
   id int(4) auto_increment primary key,
-  img varchar(255)not null unique,
+  img varchar(255)not null,
   id_establishment int(4),
   favorite boolean default(false),
   created_at datetime default(current_timestamp),
@@ -135,11 +135,25 @@ insert into formats (name) value ('Menu');
 
 create table if not exists datas(
   id int(4) auto_increment primary key,
-  datum varchar(50)not null unique,
+  datum varchar(50) not null unique,
   id_establishment int(4),
   created_at datetime default(current_timestamp),
   updated_at datetime default(current_timestamp),
+  
   constraint fk_establishmentByDatas foreign key (id_establishment) references establisments(id)
+);
+
+create table if not exists posts(
+  id int(4) auto_increment primary key,
+  id_establishment int(4),
+  title varchar(255) not null,
+  text varchar(255) not null,
+  img varchar(255) not null,
+  showPost boolean default(false),
+  created_at datetime default(current_timestamp),
+  updated_at datetime default(current_timestamp),
+
+  constraint fk_establishments_post foreign key (id_establishment) references establisments(id)
 );
 
 create table if not exists visits(
