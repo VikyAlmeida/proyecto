@@ -50,7 +50,6 @@ class EstablishmentController{
             $id_category = $_POST["category"];
             if(empty($errores)){
                 $datos = compact('name', 'slug', 'location', 'id_category');
-                var_dump($datos);
                 if(EstablishmentModel::addEstablishment($datos)):
                     echo "<script>
                             Swal.fire(
@@ -83,7 +82,6 @@ class EstablishmentController{
     public function favoriteImage($idImg){
         $query = 'SELECT * FROM establisments_image where id = '.$idImg.'';
         $img = EstablishmentModel::getEstablishmentImage($query);
-        var_dump($img[0]['favorite']);
 
         if ($img[0]['favorite']):
             echo "<script>

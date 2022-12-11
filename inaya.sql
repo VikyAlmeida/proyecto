@@ -127,20 +127,14 @@ create table if not exists formats(
   updated_at datetime default(current_timestamp)
 );
 
-insert into formats (name) value ('Imagenes');
-insert into formats (name) value ('Titulos');
-insert into formats (name) value ('Subtitulos');
-insert into formats (name) value ('Listado');
-insert into formats (name) value ('Menu');
+insert into formats (name) value ('Imagen');
+insert into formats (name) value ('texto');
 
 create table if not exists datas(
   id int(4) auto_increment primary key,
-  datum varchar(50) not null unique,
-  id_establishment int(4),
+  datum varchar(50) not null,
   created_at datetime default(current_timestamp),
-  updated_at datetime default(current_timestamp),
-  
-  constraint fk_establishmentByDatas foreign key (id_establishment) references establisments(id)
+  updated_at datetime default(current_timestamp)
 );
 
 create table if not exists posts(
@@ -241,15 +235,13 @@ create table if not exists styles (
   id_format int(4),
   id_establishment int(4),
   id_section int(4),
-  datum varchar(255),
+  id_data int(4),
   created_at datetime default(current_timestamp),
   updated_at datetime default(current_timestamp),
 
   constraint fk_format_section_datum foreign key (id_format) references formats(id),
   constraint fk_section_format_datum foreign key (id_section) references sections(id),
   constraint fk_establishments_section_format foreign key (id_establishment) references establisments(id),
-  constraint pk_datas_sections_formats PRIMARY KEY (id_format, id_section, id_establishment)
+  constraint fk_establishments_section_format_datas foreign key (id_data) references datas(id),
+  constraint pk_datas_sections_formats PRIMARY KEY (id_format, id_section, id_establishment, id_data)
 );
-
-insert into styles (id_format,id_establishment,id_section,datum) value (1,1,1,'./vistas/img/ayamonte/establisment/jungle_banner.png');
-insert into styles (id_format,id_establishment,id_section,datum) value (2,1,1,'The Jungle - Lounge Bar');

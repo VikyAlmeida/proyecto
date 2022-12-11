@@ -20,7 +20,6 @@
                 $message_text = Generales::sanar_datos($_POST["message"],"string",$errores,"mensaje");
                 if(empty($errores)){
                     $datos = compact('receiver', 'transmitter', 'message_text');
-                    var_dump($datos);
                     if(MessengerModel::add($datos)):
                         echo "<script>
                                 Swal.fire(

@@ -106,7 +106,6 @@
         public static function addPhoto($datos){
             $conexion = Conectar::conectate();
             $tabla = self::$tabla_image;
-            var_dump($datos);
             
             $query = "insert into ".$tabla." (img, id_establishment) value (?,?);";
             $result = $conexion->prepare($query);

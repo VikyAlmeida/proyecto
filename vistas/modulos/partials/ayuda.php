@@ -5,6 +5,7 @@
 
     $establishmentController = new EstablishmentController();
     $publicacionesController = new PostController();
+    $sectionController = new SectionController();
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if ($_POST['ayuda'] === 'mensajeriaAcciones'):
@@ -30,6 +31,10 @@
         elseif($_POST['ayuda'] === 'showPost'):
             echo $publicacionesController->updated($_POST['id'], 'show', $_POST['accion']);
 
+        elseif($_POST['ayuda'] === 'configuration'):
+            $establishment = $_POST['local'];
+            $section = $_POST['section'];
+            $sectionController->configuration($establishment, $section);
         elseif($_POST['ayuda'] === 'valoration'):
             $establishmentController->valoration($_POST['estrellas'], $_POST['id']);
 

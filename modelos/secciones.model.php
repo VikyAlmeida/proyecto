@@ -52,4 +52,30 @@
             {return true;}
             else{return false;}
         }
+
+        public static function addData($datum) {
+            $conexion = Conectar::conectate();
+            
+            $query = "Insert into datas (datum) values (?)";
+            $result = $conexion->prepare($query);
+            if($result->execute(array($datum)))
+            {
+                $result = $conexion->query('SELECT id FROM datas order by id desc limit 1');
+                return $result->fetch();
+            }
+            else
+            {return false;}
+        }
+
+        public static function addStyles($datos) {
+            $conexion = Conectar::conectate();
+            
+            $query = "Insert into styles (id_format, id_establishment, id_section, id_data) values (?, ?, ?, ?)";
+            $result = $conexion->prepare($query);
+            if($result->execute(array($datos["format"], $datos["establishment"], $datos["section"], $datos["data"])))
+            {return true;}
+            else
+            {return false;}
+
+        }
     }

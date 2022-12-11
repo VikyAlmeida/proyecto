@@ -31,6 +31,10 @@
 </style>
 
 <?php 
+    $local = new establishmentController();
+    $categoryController = new CategoryController();
+    $sectionController = new SectionController();
+
     $slug = '';
     for($i=0; $i<count(explode("-", $_GET["ruta"]));$i++){
         if( $i != 0 && $i != count(explode("-", $_GET["ruta"]))-1){
@@ -38,9 +42,10 @@
         }
     }
     $slug = substr($slug, 0, -1);
-    $local = new establishmentController();
     $miLocal = $local->getEstablishments('SELECT * FROM establisments where slug like "'.$slug.'"');
     $_SESSION['local'] = $miLocal;
+    $categories = $categoryController->getCategory('id', $miLocal['id_category']);
+    $sections = $sectionController->getSections('SELECT * FROM category_by_section cs JOIN sections s on cs.id_section=s.id where id_category = '.$miLocal['id_category']);
 ?>
 
 <div style="background-color:#0E2737;padding:5em;color:white">
@@ -64,12 +69,18 @@
 
 <div style="display:flex;padding:5em;">
     <div style="width:30%;">
-        <ul style="width:30%;margin:0 auto;">
+        <ul style="width:30%;margin:0 auto;" id="menuConfig">
+            <li><h4 style="text-align: center;color:#4688C8">Configuración</h4></li>
             <li class="active" id="infoLink" onclick='navegar("infoLink")'>- Información</li>
             <li id="galeriaLink" onclick='navegar("galeriaLink")'>- Galeria</li>
             <li id="publicacionLink" onclick='navegar("publicacionLink")'>- Publicaciones</li>
-            <li id="seccionesLink" onclick='navegar("seccionesLink")'>- Secciones</li>
-            <li id="previaLink" onclick='navegar("previaLink")'>- Vista previa</li>
+            <li><h4 style="text-align: center;color:#4688C8">Secciones</h4></li>
+            <?php if($sections): ?>
+                <?php foreach( $sections as $section ): ?>
+                    <li id="<?= $section['name'].'Link' ?>" onclick='navegar("<?= $section["name"]."Link" ?>")'>- <?= $section['name'] ?></li>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <li id="previaLink" onclick='navegar("previaLink")'><a href="establecimiento-<?= $miLocal['slug'] ?>" style="text-decoration: none;"><i class="fa fa-eye"></i> Vista previa</a></li>
         </ul>
     </div>
     <div class='divActive' id="info" style="justify-content:center">
@@ -87,20 +98,34 @@
     <div class='divHidden' id="previa">
         <?php include('./vistas/modulos/Propietarios/partials/preview.php'); ?>
     </div>
+    <?php if($sections): ?>
+        <?php foreach( $sections as $section ): ?>
+            <div class='divHidden' id="<?= $section['name'] ?>" style='justify-content:center;'>
+                <?php include($section['file']); ?>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </div>
 <script>
     const section = localStorage.getItem('section') || 'info';
     navegar(section+'Link')
-
     function navegar(id){
         // add style
-        const menu = new Array('infoLink', 'galeriaLink', 'publicacionLink', 'seccionesLink', 'previaLink');
+        const menu = new Array();
+        const menuConfig = document.getElementById('menuConfig');
+        for(let i = 0; i < menuConfig.childNodes.length; i++){
+            if (menuConfig.childNodes[i].id){
+                menu.push(menuConfig.childNodes[i].id);
+            }
+        }
+
         for (var i = 0; i < menu.length; i++) {
             document.getElementById(menu[i]).classList.remove("active");
             const elementDiv = menu[i].substring(0, menu[i].length - 4);
             document.getElementById(elementDiv).classList.remove("divActive");
             document.getElementById(elementDiv).classList.add("divHidden");
         }
+        console.log(id);
         const elementDiv = id.substring(0, id.length - 4);
         document.getElementById(id).classList.add("active");
         document.getElementById(elementDiv).classList.add("divActive");

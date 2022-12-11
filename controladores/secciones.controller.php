@@ -38,6 +38,7 @@ class SectionController{
             }
         }
     }
+
     public function updated($id) {
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $name = Generales::sanar_datos($_POST["name"],"string",$errores,"nombre");
@@ -69,6 +70,7 @@ class SectionController{
             }
         }
     }
+
     public static function deleted($id) {
         $id = (int)$id;
         if(SectionModel::delete($id)):
@@ -88,5 +90,39 @@ class SectionController{
                      ).then(() => window.location= 'menu');
            </script>";
         endif;
+    }
+
+    public function configuration($establishment, $section) {
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if (!isset($_SESSION['configuration'])):
+                $notValid = ['local', 'section', 'ayuda'];
+
+                foreach ($_POST as $key => $val) {
+                    if(!in_array($key, $notValid)){
+                        $dataObj = SectionModel::addData($val);
+                        $data = $dataObj['id'];
+                        $format = 2;
+                        $datos = compact('data', 'format', 'establishment', 'section');
+                        SectionModel::addStyles($datos);
+                    }
+                }
+                $i = 0;
+                foreach ($_FILES as $key => $val) {
+                    echo $i;
+                    //var_dump($_FILES[$key]);
+                    $files='./vistas/img/ayamonte/establisment/'.$establishment.'/'.Generales::foto($_FILES[$key], './vistas/img/ayamonte/establisment/'.$establishment.'/');
+                    //echo $files;
+                    $dataObj = SectionModel::addData($files);
+                    $data = $dataObj['id'];
+                    $format = 1;
+                    $datos = compact('data', 'format', 'establishment', 'section');
+                    SectionModel::addStyles($datos);
+                    $i = 1;
+                }
+                $_SESSION['configuration'] = false;
+            else: 
+                unset($_SESSION['configuration']);
+            endif;
+        }
     }
 }

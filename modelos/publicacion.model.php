@@ -30,7 +30,6 @@
             $tabla = self::$tabla;
             
             $query = "INSERT INTO posts (title, text, id_establishment, showPost, img) values (?,?,?,?,?);";
-            var_dump($datos);
             $result = $conexion->prepare($query);
             if($result->execute(array($datos["title"], $datos["text"], $datos["id_establishment"], $datos["show"], $datos["img"])))
             {return true;}
