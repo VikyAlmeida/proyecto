@@ -67,6 +67,23 @@
             {return false;}
         }
 
+        public static function deletedConfiguracion($establishment, $section) {
+            $conexion = Conectar::conectate();
+            $query = 'SELECT * FROM styles where id_establishment = '. $establishment .' and id_section = '.$section;
+            $result = $conexion->query($query);
+            $styles = $result->fetchAll();
+
+            $query = "DELETE FROM styles where id_establishment = $establishment and id_section = $section";
+            $result = $conexion->exec($query);
+
+            foreach ($styles as $style) {
+                $id_data = (int)$style['id_data'];
+                $query = "DELETE FROM datas where id = ".$id_data;
+                $result = $conexion->exec($query);
+            }
+        }
+
+
         public static function addStyles($datos) {
             $conexion = Conectar::conectate();
             
@@ -76,6 +93,5 @@
             {return true;}
             else
             {return false;}
-
         }
     }

@@ -96,6 +96,7 @@ class SectionController{
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if (!isset($_SESSION['configuration'])):
                 $notValid = ['local', 'section', 'ayuda'];
+                SectionModel::deletedConfiguracion((int)$establishment, (int)$section);
 
                 foreach ($_POST as $key => $val) {
                     if(!in_array($key, $notValid)){
@@ -106,9 +107,7 @@ class SectionController{
                         SectionModel::addStyles($datos);
                     }
                 }
-                $i = 0;
                 foreach ($_FILES as $key => $val) {
-                    echo $i;
                     //var_dump($_FILES[$key]);
                     $files='./vistas/img/ayamonte/establisment/'.$establishment.'/'.Generales::foto($_FILES[$key], './vistas/img/ayamonte/establisment/'.$establishment.'/');
                     //echo $files;
@@ -117,9 +116,14 @@ class SectionController{
                     $format = 1;
                     $datos = compact('data', 'format', 'establishment', 'section');
                     SectionModel::addStyles($datos);
-                    $i = 1;
                 }
                 $_SESSION['configuration'] = false;
+                echo "<script>
+                        Swal.fire(
+                        'Configuracion realizada!',
+                        'success'
+                    ).then(() => window.location= 'menu');
+                    </script>";
             else: 
                 unset($_SESSION['configuration']);
             endif;
