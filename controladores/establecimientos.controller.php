@@ -46,10 +46,11 @@ class EstablishmentController{
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $name = Generales::sanar_datos($_POST["name"],"string",$errores,"nombre");
             $location = $_POST["location"];
-            $slug = $_POST["slug"];
-            $category_id = $_POST["category_id"];
+            $slug = str_replace(" ", "-", $name);
+            $id_category = $_POST["category"];
             if(empty($errores)){
-                $datos = compact('name', 'slug', 'category_id', 'category_id');
+                $datos = compact('name', 'slug', 'location', 'id_category');
+                var_dump($datos);
                 if(EstablishmentModel::addEstablishment($datos)):
                     echo "<script>
                             Swal.fire(
@@ -67,6 +68,15 @@ class EstablishmentController{
                              ).then(() => window.location= 'menu');
                    </script>";
                 endif;
+            } else {
+                echo "<script>
+                       Swal.fire(
+                         'error',
+                         'Oops...!',
+                         'Los datos son incorrectos',  
+                         ).then(() => window.location= 'menu');
+               </script>";
+
             }
         }
     }
@@ -122,13 +132,13 @@ class EstablishmentController{
         $idUser = $_SESSION["usuario"]["id"];
         if(empty($errores)){
             $datos = compact('value', 'idEstablishment', 'idUser');
-            if(EstablishmentModel::addEstablishment($datos)):
+            if(EstablishmentModel::valorate($datos)):
                 echo "<script>
                         Swal.fire(
                         'Añadido!',
                         'Se ha Añadido el establecimiento con exito.',
                         'success'
-                    ).then(() => window.location= 'menu');
+                    ).then(() => window.location= 'establecimientos');
                     </script>"; 
             else:
                 echo "<script>
@@ -136,7 +146,7 @@ class EstablishmentController{
                             'error',
                             'Oops...!',
                             'Operación inválida.',  
-                            ).then(() => window.location= 'menu');
+                            ).then(() => window.location= 'establecimientos');
                 </script>";
             endif;
         }
@@ -172,5 +182,10 @@ class EstablishmentController{
                 </script>";
             endif;
         }
+    }
+    public function getValorate($query){
+        if ($query == null) $query = 'SELECT * FROM valoration';
+        $registros = EstablishmentModel::getValorate($query);
+        return $registros;
     }
 }

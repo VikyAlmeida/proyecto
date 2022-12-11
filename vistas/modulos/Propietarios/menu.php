@@ -304,7 +304,7 @@
                                     </a>
                                 </td>
                                 <td style='text-align:left;width:15%'>
-                                    <a href='miLocal-<?=$establishment['slug']?>-deleted' type="button" class="btn btn-outline-secondary">
+                                    <a href='establishment-<?=$establishment['id']?>-deleted' type="button" class="btn btn-outline-secondary">
                                         Eliminar
                                     </a>
                                 </td>

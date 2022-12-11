@@ -68,7 +68,7 @@
             $conexion = Conectar::conectate();
             $tabla = self::$tabla;
             
-            $query = "insert into".$tabla." (name, location, slug, id_category) value (?,?,?,?);";
+            $query = "insert into ".$tabla." (name, location, slug, id_category) value (?,?,?,?);";
             $result = $conexion->prepare($query);
             if($result->execute(array($datos["name"], $datos["location"], $datos["slug"], $datos["id_category"])))
             {return true;}
@@ -89,7 +89,14 @@
             $conexion = Conectar::conectate();
             $tabla = self::$tabla_valoration;
 
-            $query = "insert into".$tabla." (id_user, id_establishment, valorate) value (?,?,?);";
+            $result = $conexion->query('SELECT * FROM valoration where id_user = '.$_SESSION["usuario"]["id"].' and id_establishment = '.$datos["idEstablishment"]);
+            
+            if($result->rowCount()==1):
+                // eliminar la mas antigua
+                $result = $conexion->query('DELETE FROM valoration where id_user = '.$_SESSION["usuario"]["id"].' and id_establishment = '.$datos["idEstablishment"]);
+            endif;
+
+            $query = "insert into ".$tabla." (id_user, id_establishment, valorate) value (?,?,?);";
             $result = $conexion->prepare($query);
             if($result->execute(array($datos["idUser"], $datos["idEstablishment"], $datos["value"])))
             {return true;}
@@ -107,5 +114,15 @@
             {return true;}
             else
             {return false;}
+        }
+        public static function getValorate($query) {           
+            $conexion = Conectar::conectate();
+
+            $result = $conexion->query($query);
+            if($result->rowCount()>1):
+                return $result->fetchAll();
+            else:
+                return $result->fetch();
+            endif;
         }
     }

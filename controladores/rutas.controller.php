@@ -8,7 +8,7 @@ class ControllerRutas{
             "logueado" => [
                 "comunes" => ['logout','perfil', 'message'],
                 "admin" => ['menu', 'categorias','redesSociales','secciones', 'formato'],
-                "propietario" => ['menu', 'configuracion', 'miLocal', 'posts'],
+                "propietario" => ['menu', 'configuracion', 'miLocal', 'posts', 'establishment'],
             ],
         ];
 

@@ -31,7 +31,7 @@
             echo $publicacionesController->updated($_POST['id'], 'show', $_POST['accion']);
 
         elseif($_POST['ayuda'] === 'valoration'):
-            $establishmentController->valoration($_POST['value'], $_POST['establishment']);
+            $establishmentController->valoration($_POST['estrellas'], $_POST['id']);
 
         endif;
     }

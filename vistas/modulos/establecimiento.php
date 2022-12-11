@@ -12,6 +12,8 @@
     $establishment = $local->getEstablishments('SELECT * FROM establisments where slug like "'.$slug.'"');
     $img = $local->getImageFavorite($establishment['id']);
     $category = $categoryController->getCategory('id', $establishment['id_category']);
+
+    $valorate = $local->getValorate('SELECT * FROM valoration where id_user = '.$_SESSION["usuario"]["id"].' and id_establishment = '.$establishment['id']);
 ?>
 <!-- banner nombre img -->
 <div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image:url(./vistas/img/ayamonte/1.png)">
@@ -262,3 +264,56 @@
         </div>
     </div>
 </section>
+<style>
+    p.clasificacion {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    p.clasificacion input {
+    position: absolute;
+    top: -100px;
+    }
+
+    p.clasificacion label {
+    float: right;
+    color: #333;
+    }
+
+    p.clasificacion label:hover,
+    p.clasificacion label:hover ~ label,
+    p.clasificacion input:checked ~ label {
+    color: #dd4;
+    }
+</style>
+<!-- Reservar -->
+<div style="background-color:#0E2737;color:white;width:100%;height:30%;padding:0;">
+    <div class="row h-100 align-items-center">
+        <div class="col-6"style="width:100%;height:10%;padding:0;">
+            <img src="./vistas/img/ayamonte/1.png" alt=""style="width:100%;height:20em;padding:0;">
+        </div>
+        <div class="col-6">
+            <div class="breadcrumb-content text-center">
+                <h1 class="page-title">Valoración</h1>
+                <form action="ayuda" method="post">
+                    <p class="clasificacion"style="background-color:rgb(70, 136, 200); padding:1em">
+                        <input type="hidden" name="id" value="<?=$establishment['id']?>">
+                        <input type="hidden" name="ayuda" value="valoration">
+                        <input type="submit" style = 'background:transparent;border:0px;' id="radio1" name="estrellas" value="5">
+                        <label for="radio1" style="color: <?= $valorate['valorate']>= 5? '#dd4' :''; ?>">★</label>
+                        <input type="submit" style = 'background:transparent;border:0px;' id="radio2" name="estrellas" value="4">
+                        <label for="radio2" style="color: <?= $valorate['valorate']>= 4? '#dd4' :''; ?>">★</label>
+                        <input type="submit" style = 'background:transparent;border:0px;' id="radio3" name="estrellas" value="3">
+                        <label for="radio3" style="color: <?= $valorate['valorate']>= 3? '#dd4' :''; ?>">★</label>
+                        <input type="submit" style = 'background:transparent;border:0px;' id="radio4" name="estrellas" value="2">
+                        <label for="radio4" style="color: <?= $valorate['valorate']>= 2? '#dd4' :''; ?>">★</label>
+                        <input type="submit" style = 'background:transparent;border:0px;' id="radio5" name="estrellas" value="1">
+                        <label for="radio5" style="color: <?= $valorate['valorate'] >= 1? '#dd4' :''; ?>">★</label>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?= $valorate['valorate']>= 2? '#dd4' :''; ?>
