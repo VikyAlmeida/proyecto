@@ -77,8 +77,8 @@
 </div>
 
 <div class='container' style="padding:3em;margin:0 auto;" id="statistics">
-    <div class="row" style="">
-        <div class="col-sm-6 col-lg-6" style="">
+    <div class="row">
+        <div class="col-sm-6 col-lg-6">
             <div class="card text-white bg-flat-color-4">
                 <div class="card-body pb-0">
                     <div style='display:flex;width:100%;'>
