@@ -4,10 +4,11 @@
             <div class="col-12">
                 <!-- Form -->
                 <div class="roberto-contact-form">
-                    <form action="" method="post" enctype="multipart/form-data" >
+                    <form action="ayuda" method="post" enctype="multipart/form-data" >
                         <div class="row">
                             <input type="hidden" name="local" value="<?= $miLocal['id'] ?>">
-                            <input type="hidden" name="local" value="<?= $section['id'] ?>">
+                            <input type="hidden" name="section" value="<?= $section['id'] ?>">
+                            <input type="hidden" name="ayuda" value="configuration">
                             <div class="col-12 col-lg-6 fadeInUp" data-wow-delay="100ms">
                                 <input type="text" name="name" class="form-control mb-30" placeholder="Texto" value="Reserva y vente">
                             </div>

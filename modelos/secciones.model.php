@@ -67,6 +67,17 @@
             {return false;}
         }
 
+        public static function addStyles($datos) {
+            $conexion = Conectar::conectate();
+            
+            $query = "Insert into styles (id_format, id_establishment, id_section, id_data) values (?, ?, ?, ?)";
+            $result = $conexion->prepare($query);
+            if($result->execute(array($datos["format"], $datos["establishment"], $datos["section"], $datos["data"])))
+            {return true;}
+            else
+            {return false;}
+        }
+
         public static function deletedConfiguracion($establishment, $section) {
             $conexion = Conectar::conectate();
             $query = 'SELECT * FROM styles where id_establishment = '. $establishment .' and id_section = '.$section;
@@ -82,16 +93,13 @@
                 $result = $conexion->exec($query);
             }
         }
+        
 
-
-        public static function addStyles($datos) {
+        public static function getConfig($establishment, $section) {
             $conexion = Conectar::conectate();
             
-            $query = "Insert into styles (id_format, id_establishment, id_section, id_data) values (?, ?, ?, ?)";
-            $result = $conexion->prepare($query);
-            if($result->execute(array($datos["format"], $datos["establishment"], $datos["section"], $datos["data"])))
-            {return true;}
-            else
-            {return false;}
+            $query = 'SELECT * FROM styles s JOIN datas d ON id_data=id where id_establishment = '. $establishment .' and id_section = '.$section;
+            $result = $conexion->query($query);
+            return $result->fetchAll();
         }
     }

@@ -26,7 +26,7 @@
             $establishmentController->favoriteImage($_POST['id']);
 
         elseif($_POST['ayuda'] === 'addImage'):
-            echo $establishmentController->addPhoto($_POST['id'], $_FILES["file"]);
+            $establishmentController->addPhoto($_POST['id'], $_FILES["file"]);
 
         elseif($_POST['ayuda'] === 'showPost'):
             echo $publicacionesController->updated($_POST['id'], 'show', $_POST['accion']);

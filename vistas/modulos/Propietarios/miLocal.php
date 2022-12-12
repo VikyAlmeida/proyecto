@@ -80,7 +80,7 @@
                     <li id="<?= $section['name'].'Link' ?>" onclick='navegar("<?= $section["name"]."Link" ?>")'>- <?= $section['name'] ?></li>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <li id="previaLink" onclick='navegar("previaLink")'><a href="establecimiento-<?= $miLocal['slug'] ?>" style="text-decoration: none;"><i class="fa fa-eye"></i> Vista previa</a></li>
+            <li><a href="establecimiento-<?= $miLocal['slug'] ?>" style="text-decoration: none;"><i class="fa fa-eye"></i> Vista previa</a></li>
         </ul>
     </div>
     <div class='divActive' id="info" style="justify-content:center">
@@ -94,9 +94,6 @@
     </div>
     <div class='divHidden' id="secciones">
         <?php include('./vistas/modulos/Propietarios/partials/secciones.php'); ?>
-    </div>
-    <div class='divHidden' id="previa">
-        <?php include('./vistas/modulos/Propietarios/partials/preview.php'); ?>
     </div>
     <?php if($sections): ?>
         <?php foreach( $sections as $section ): ?>

@@ -52,7 +52,7 @@
         public static function showAction($id, $show) {
             $conexion = Conectar::conectate();
             $tabla = self::$tabla;
-            echo $id . ''. $show;
+            
             $query = "UPDATE $tabla SET showPost = ? WHERE id = ?";
             $result = $conexion->prepare($query);
             if($result->execute(array($show, $id)))

@@ -132,7 +132,7 @@ insert into formats (name) value ('texto');
 
 create table if not exists datas(
   id int(4) auto_increment primary key,
-  datum varchar(50) not null,
+  datum varchar(255) not null,
   created_at datetime default(current_timestamp),
   updated_at datetime default(current_timestamp)
 );

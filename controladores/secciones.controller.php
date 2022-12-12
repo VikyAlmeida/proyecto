@@ -129,4 +129,9 @@ class SectionController{
             endif;
         }
     }
+
+    public function getConfig($establishment, $section){
+        $sectionObj = self::getSection('name',$section);
+        return SectionModel::getConfig((int)$establishment, $sectionObj['id']);
+    }
 }
