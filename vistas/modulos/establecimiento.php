@@ -15,7 +15,7 @@
     $img = $local->getImageFavorite($establishment['id']);
     $category = $categoryController->getCategory('id', $establishment['id_category']);
 
-    $valorate = $local->getValorate('SELECT * FROM valoration where id_user = '.$_SESSION["usuario"]["id"].' and id_establishment = '.$establishment['id']);
+    if( isset($_SESSION["usuario"]) )$valorate = $local->getValorate('SELECT * FROM valoration where id_user = '.$_SESSION["usuario"]["id"].' and id_establishment = '.$establishment['id']);
 
     $imgs = $local->getImage($establishment['id']);
     $posts = $publicacionesController->getPosts('SELECT * FROM posts where showPost = 1 and id_establishment = '.$establishment['id']);

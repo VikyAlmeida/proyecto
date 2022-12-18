@@ -267,7 +267,7 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-lg-12">
                             <div style="margin-bottom:-3em;">
-                                <h6><a class="btn btn-primary" href="categorias-new">Añadir categoria</a></h6>
+                                <h6><a class="btn btn-primary" href="categoriasAdmin-new">Añadir categoria</a></h6>
                                 <h2>Categories</h2>
                             </div>
                             <div >
@@ -285,12 +285,12 @@
                                                 <td><img src="<?=$category['img']?>" alt="categoria <?=$category['id']?>"></td>
                                                 <td><?=$category['name']?></td>
                                                 <td style='text-align:right;width:15%;'>
-                                                    <a href='categorias-<?=$category['id']?>-edit' type="button" class="btn btn-outline-secondary">
+                                                    <a href='categoriasAdmin-<?=$category['id']?>-edit' type="button" class="btn btn-outline-secondary">
                                                         Editar
                                                     </a>
                                                 </td>
                                                 <td style='text-align:left;width:15%'>
-                                                    <a href='categorias-<?=$category['id']?>-deleted' type="button" class="btn btn-outline-secondary">
+                                                    <a href='categoriasAdmin-<?=$category['id']?>-deleted' type="button" class="btn btn-outline-secondary">
                                                         Eliminar
                                                     </a>
                                                 </td>

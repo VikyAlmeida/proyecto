@@ -31,11 +31,11 @@ class userController{
                     $_SESSION["usuario"]["id_role"]=$userBd["id_role"];
                     if ($userBd["id_role"]==1 or $userBd["id_role"]==2) {
                         echo "<script>
-                                Swal.fire(
-                                'Loggued!',
-                                'Has iniciado sesion.',
-                                'success'
-                            ).then(() => window.location= 'menu');
+                        Swal.fire(
+                            'Good job!',
+                            'You clicked the button!',
+                            'success'
+                          )
                             </script>"; 
                     } else {
                         echo "<script>
@@ -49,22 +49,24 @@ class userController{
                 else:
                     unset($_SESSION["usuario"]);
                     echo "<script>
-                           Swal.fire(
-                             'error',
-                             'Oops...!',
-                             'Contraseña incorrecta.',  
-                             ).then(() => window.location= 'login');
+                    Swal.fire(
+                        'Good job!',
+                        'You err the button!',
+                        'success'
+                      )
                    </script>";
                 endif;
             else:
                 unset($_SESSION["usuario"]);
-                echo "<script>
-                       Swal.fire(
-                         'error',
-                         'Oops...!',
-                         'Operación inválida.',  
-                         ).then(() => window.location= 'login');
-               </script>";
+                ?>
+                    <script>
+                        Swal.fire(
+                            'The Internet?',
+                            'That thing is sa around?',
+                            'question'
+                        )
+                    </script>
+                <?php  
             endif;
         }
     }

@@ -160,7 +160,7 @@
                         <h6><?=$category['name']?></h6>
                         <p><?=$establishment['location']?></p>
                     </div>
-                    <a href="#" class="btn project-btn">Ver mas <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                    <a href="establecimiento-<?= $establishment["slug"] ?>" class="project-btn" style="color:white" style="color:white">Ver mas <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
                 </div>
             </div>
             <?php endforeach; ?>

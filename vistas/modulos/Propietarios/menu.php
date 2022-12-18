@@ -24,8 +24,11 @@
     $visitsByMonth_json = json_encode($visitsByMonth);
     $establishmentMoreVisited_json = json_encode($establishmentMoreVisited);
     $categories_json = json_encode($categoriesEstablishment);
+    
+    $messengerController = new MessengerController();
+    $messages = $messengerController->getMessages("SELECT * FROM messenger_service where receiver like '".$_SESSION["usuario"]["id"]."'");
 ?> 
-<div class="breadcrumb-area bg-img bg-overlay jarallax" style="margin-top:1em;background-color:#718F94;">
+<div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-color:#718F94;">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -344,7 +347,7 @@
     </div>
 </div>
 
-<div id="messages" style='display:none;'>
+<div id="message" style='display:none;'>
     <?php if ($messages): ?>
         <div class="col-12 col-lg-12" style='margin:0.1em'>
             <section class="roberto-about-area" style="

@@ -7,7 +7,7 @@ class ControllerRutas{
             "noLogueado" => ['login', 'registro'],
             "logueado" => [
                 "comunes" => ['logout','perfil', 'message'],
-                "admin" => ['menu', 'categorias','redesSociales','secciones', 'formato'],
+                "admin" => ['menu', 'categoriasAdmin','redesSociales','secciones', 'formato'],
                 "propietario" => ['menu', 'configuracion', 'miLocal', 'posts', 'establishment'],
             ],
         ];

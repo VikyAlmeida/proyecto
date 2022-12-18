@@ -61,7 +61,7 @@
                             document.write(`                <h6>${elements[i].nameCategory}</h6>`);
                             document.write(`                <p>${elements[i].location}</p>`);
                             document.write(`            </div>`);
-                            document.write(`            <a href="establecimiento-${elements[i].slug}" class="btn project-btn">Ver mas <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>`);
+                            document.write(`            <a href="establecimiento-${elements[i].slug}" class="project-btn" style="color:white">Ver mas <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>`);
                             document.write(`        </div>`);
                             document.write(`    </div>`);
                             document.write(`</div>`);
