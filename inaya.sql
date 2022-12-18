@@ -162,17 +162,17 @@ create table if not exists visits(
   constraint fk_establishment_visit foreign key (id_establishment) references establisments(id)
 );
 
-insert into visits (id_user,id_establishment,date_of_booking) value (1,1,current_timestamp);
-insert into visits (id_user,id_establishment,date_of_booking) value (1,1,null);
-insert into visits (id_user,id_establishment,date_of_booking) value (1,1,null);
-insert into visits (id_user,id_establishment,date_of_booking) value (1,2,current_timestamp);
-insert into visits (id_user,id_establishment,date_of_booking) value (1,6,null);
-insert into visits (id_user,id_establishment,date_of_booking) value (3,2,null);
-insert into visits (id_user,id_establishment,date_of_booking) value (3,3,current_timestamp());
-insert into visits (id_user,id_establishment,date_of_booking) value (2,1,null);
-insert into visits (id_user,id_establishment,date_of_booking) value (3,6,null);
-insert into visits (id_user,id_establishment,date_of_booking) value (3,1,null);
-insert into visits (id_user,id_establishment,date_of_booking) value (1,2,null);
+insert into visits (id_user,id_establishment,created_at) value (1,1,'2022-12-12 00:57:41');
+insert into visits (id_user,id_establishment,created_at) value (1,1,'2022-10-12 00:57:41');
+insert into visits (id_user,id_establishment,created_at) value (1,1,'2022-12-12 00:57:41');
+insert into visits (id_user,id_establishment,created_at) value (1,2,'2022-12-12 00:57:41');
+insert into visits (id_user,id_establishment,created_at) value (1,6,'2022-11-12 00:57:41');
+insert into visits (id_user,id_establishment,created_at) value (3,2,'2022-11-12 00:57:41');
+insert into visits (id_user,id_establishment,created_at) value (3,3,'2022-11-12 00:57:41');
+insert into visits (id_user,id_establishment,created_at) value (2,1,'2022-10-12 00:57:41');
+insert into visits (id_user,id_establishment,created_at) value (3,6,'2022-11-12 00:57:41');
+insert into visits (id_user,id_establishment,created_at) value (3,1,'2022-12-12 00:57:41');
+insert into visits (id_user,id_establishment,created_at) value (1,2,'2022-11-12 00:57:41');
 
 create table if not exists social_networks_by_establisment (
   id_socialNetwork int(4),

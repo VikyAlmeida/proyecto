@@ -9,7 +9,7 @@
         }
     
         public function getMessage($field, $value) {        
-            $registros = MessengerModel::getMessage("",$field, $value);
+            $registros = MessengerModel::getMessage($field, $value);
             return $registros;
         }
 

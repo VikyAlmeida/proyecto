@@ -32,10 +32,10 @@ class userController{
                     if ($userBd["id_role"]==1 or $userBd["id_role"]==2) {
                         echo "<script>
                         Swal.fire(
-                            'Good job!',
-                            'You clicked the button!',
-                            'success'
-                          )
+                                'Loggued!',
+                                'Has iniciado sesion.',
+                                'success'
+                            ).then(() => window.location= 'inicio');
                             </script>"; 
                     } else {
                         echo "<script>

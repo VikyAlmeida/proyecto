@@ -3,6 +3,7 @@
     $categories = $categoryController->getCategories(null);
 
     $messengerController = new MessengerController();
+    $totalMessages = $messengerController->getMessages('SELECT count(id) as meMessages FROM messenger_service where receiver = '.$_SESSION["usuario"]["id"]);
     $messages = $messengerController->getMessages("SELECT * FROM messenger_service where receiver like '".$_SESSION["usuario"]["id"]."'");
 
     $formatController = new FormatController();
@@ -25,6 +26,7 @@
     $establishment_json = json_encode($establishment);
 
     $establishmentController = new establishmentController();
+    $categoriesTotal = $establishmentController->getGraphicsData('SELECT count(id) FROM categories c');
     $categoriesEstablishment = $establishmentController->getGraphicsData('SELECT id_category, c.name as name, count(e.id) as establishmentByCategory FROM establisments e join categories c on c.id=id_category group by id_category;');
     $categories_json = json_encode($categoriesEstablishment);
 ?> 
@@ -77,6 +79,68 @@
 </div>
 
 <div class='container' style="padding:3em;margin:0 auto;" id="statistics">
+    <section class="content">
+      <div class="container-fluid" style="">
+        <div class="row" style="width:100%;justify-content:center;">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><?= $establishmentTotal[0][0] ?></h3>
+
+                <p>Establecimientos</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3><?= $usersTotal[0] ?></h3>
+
+                <p>Usuarios</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3><?= $categoriesTotal[0][0] ?></h3>
+
+                <p>Categorias</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3><?= $totalMessages[0]['meMessages'] ?></h3>
+
+                <p>Mis mensajes</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+      </div>
+    </section>
     <div class="row">
         <div class="col-sm-6 col-lg-6">
             <div class="card text-white bg-flat-color-4">

@@ -62,7 +62,7 @@
 <?php 
     else :
 ?>
-<div class="col-12 col-lg-12" style='margin:1em; justify-content:center;'>
+<div class="col-12 col-lg-12" style='justify-content:center;'>
     <section class="roberto-about-area" >
         <div class="container"style="border: 1px solid black;padding:1em; border-radius: 3em">
             <div class="row align-items-center">

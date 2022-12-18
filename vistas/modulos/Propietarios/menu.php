@@ -1,5 +1,9 @@
 <?php
     $establishmentController = new establishmentController();
+    $messageController = new MessengerController();
+    $totalEstablishment = $establishmentController->getEstablishments('SELECT count(id) FROM establisments where id_owner = '.$_SESSION["usuario"]["id"]);
+    $totalMessages = $messageController->getMessages('SELECT count(id) as meMessages FROM messenger_service where receiver = '.$_SESSION["usuario"]["id"]);
+    $mdValoration = $establishmentController->getEstablishments('SELECT ROUND(SUM(valorate)/COUNT(v.id)) as media FROM valoration v join establisments e on v.id_establishment=e.id where e.id_owner='.$_SESSION["usuario"]["id"]);
     $establishments = $establishmentController->getEstablishments('SELECT * FROM establisments where id_owner = '.$_SESSION["usuario"]["id"]);
     //graficos
     $visitsClientOrNot = $establishmentController->getGraphicsData('SELECT if(count(date_of_booking)>0, 1, 0) as client
@@ -72,6 +76,54 @@
     </div>
 </div>
 <div id="statistics">
+    <section class="content">
+      <div class="container-fluid" style="">
+        <div class="row" style="width:100%;justify-content:center;">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><?= $totalEstablishment[0] ?></h3>
+
+                <p>Mis establecimientos</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3><?= $totalMessages[0]['meMessages'] ?></h3>
+
+                <p>Mis mensajes</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3><?=$mdValoration[0]?></h3>
+
+                <p>Valoración media de los establecimientos</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+      </div>
+    </section>
     <div class='container'>
         <div class="row" style='margin:1em;'>
             <div class="col-sm-6 col-lg-6">
@@ -113,7 +165,7 @@
                     <div class="card-body pb-0">
                         <div style='display:flex;width:100%;'>
                             <div style="width:50%;">
-                                <p style='color:#4688C8'>Establecimientos mas activos</p>
+                                <p style='color:#4688C8'>Establecimientos mas visitados</p>
                             </div>
                             <div style="width:50%;justify-content:center">
                                 <div id='container'>
@@ -181,6 +233,7 @@
         const threeMonthActuals = [ date.getMonth(), date.getMonth()-1<0?meses.length-1:date.getMonth()-1, date.getMonth()-2<0?meses.length-2:date.getMonth()-2 ];
 
         const visitsByMonth = <?= $visitsByMonth_json ?>;
+        console.log(visitsByMonth);
         let result = visitsByMonth.map((value) => threeMonthActuals.indexOf(parseInt(value.mes,10)-1)>-1 ? value : false);
         result = result.filter(value => value !== false);
         result = threeMonthActuals.sort(( a, b ) => { return a - b; }).map((mes) => { 
@@ -199,7 +252,7 @@
         const myChart2 = new Chart(grafica2,{
             type:'bar',
             data:{
-                labels: [meses[threeMonthActuals[2]],meses[threeMonthActuals[1]],meses[threeMonthActuals[0]]],
+                labels: [meses[threeMonthActuals[0]],meses[threeMonthActuals[1]],meses[threeMonthActuals[2]]],
                 datasets:[{
                     label: 'Locales',
                     data: [result[0],result[1],result[2]],
