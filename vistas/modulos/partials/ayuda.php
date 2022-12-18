@@ -35,6 +35,10 @@
             $establishment = $_POST['local'];
             $section = $_POST['section'];
             $sectionController->configuration($establishment, $section);
+        elseif($_POST['ayuda'] === 'noMostrar'):
+                $establishment = $_POST['local'];
+                $section = $_POST['seccion'];
+                $sectionController->deleteConfig($establishment, $section);
         elseif($_POST['ayuda'] === 'valoration'):
             $establishmentController->valoration($_POST['estrellas'], $_POST['id']);
 

@@ -35,7 +35,7 @@ class userController{
                                 'Loggued!',
                                 'Has iniciado sesion.',
                                 'success'
-                            ).then(() => window.location= 'inicio');
+                            ).then(() => window.location= 'menu');
                             </script>"; 
                     } else {
                         echo "<script>

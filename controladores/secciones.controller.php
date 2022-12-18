@@ -92,6 +92,16 @@ class SectionController{
         endif;
     }
 
+    public function deleteConfig ($establishment,$section){
+        SectionModel::deletedConfiguracion((int)$establishment, (int)$section);
+        echo "<script>
+                Swal.fire(
+                'Configuracion',
+                'Configuracion eliminada!',
+                'success'
+            ).then(() => window.location= 'menu');
+            </script>";
+    }
     public function configuration($establishment, $section) {
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if (!isset($_SESSION['configuration'])):
@@ -120,6 +130,7 @@ class SectionController{
                 $_SESSION['configuration'] = false;
                 echo "<script>
                         Swal.fire(
+                        'Configuracion'
                         'Configuracion realizada!',
                         'success'
                     ).then(() => window.location= 'menu');
