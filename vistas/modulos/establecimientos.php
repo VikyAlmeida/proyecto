@@ -9,6 +9,7 @@
     const pageSize = 6;
     const elements = <?= $establishments_json ?>;
     console.log(elements);
+    console.log(elements);
     const pages = Math.ceil(elements.length/pageSize); // paginas que necesito
     let init = (page-1)*pageSize;
     let finish = init + pageSize; 

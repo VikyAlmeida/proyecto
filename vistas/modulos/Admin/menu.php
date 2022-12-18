@@ -69,79 +69,71 @@
             <ul style="display: flex; justify-content: space-between; text-align:center; padding:1em;">
                 <li><a style="cursor:pointer; color: #4688C8;" onclick="getPartial('statistics')">Estadísticas</a></li>
                 <li><a style="cursor:pointer; color: #4688C8;" onclick="getPartial('categories')">Categorias</a></li>
-                <li><a style="cursor:pointer; color: #4688C8;" onclick="getPartial('socialNetworks')">Redes sociales</a></li>
-                <li><a style="cursor:pointer; color: #4688C8;" onclick="getPartial('sections')">Secciones</a></li>
-                <li><a style="cursor:pointer; color: #4688C8;" onclick="getPartial('formats')">Formato</a></li>
                 <li><a style="cursor:pointer; color: #4688C8;" onclick="getPartial('messages')">Mensajería</a></li>
             </ul>
         </div>
     </div>
 </div>
 
-<div class='container' style="padding:3em;margin:0 auto;" id="statistics">
-    <section class="content">
-      <div class="container-fluid" style="">
-        <div class="row" style="width:100%;justify-content:center;">
-          <div class="col-lg-3 col-6">
+<div style="width:70%;display: flex;flex-wrap: wrap;padding:3em;margin:0 auto;justify-content:center;" id="statistics">
+    <div class="row" style="grid-column: 1;grid-row: 1;width:100%;justify-content:center;">
+        <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
-              <div class="inner">
+            <div class="inner">
                 <h3><?= $establishmentTotal[0][0] ?></h3>
 
                 <p>Establecimientos</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-success">
-              <div class="inner">
+            <div class="inner">
                 <h3><?= $usersTotal[0] ?></h3>
 
                 <p>Usuarios</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-warning">
-              <div class="inner">
+            <div class="inner">
                 <h3><?= $categoriesTotal[0][0] ?></h3>
 
                 <p>Categorias</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
-              <div class="inner">
+            <div class="inner">
                 <h3><?= $totalMessages[0]['meMessages'] ?></h3>
 
                 <p>Mis mensajes</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
             </div>
-          </div>
-          <!-- ./col -->
+            <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+            </div>
+            </div>
         </div>
-      </div>
-    </section>
-    <div class="row">
+    </div>
+    <div class="row" style="grid-column: 1;grid-row: 2;width:100%;justify-content:center;">
         <div class="col-sm-6 col-lg-6">
             <div class="card text-white bg-flat-color-4">
                 <div class="card-body pb-0">
@@ -264,7 +256,7 @@
     const myChart2 = new Chart(grafica2,{
         type:'bar',
         data:{
-            labels: [meses[threeMonthActuals[2]],meses[threeMonthActuals[1]],meses[threeMonthActuals[0]]],
+            labels: [meses[threeMonthActuals[0]],meses[threeMonthActuals[1]],meses[threeMonthActuals[2]]],
             datasets:[{
                 label: 'Locales',
                 data: [result[0],result[1],result[2]],

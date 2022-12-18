@@ -4,6 +4,7 @@
     $totalEstablishment = $establishmentController->getEstablishments('SELECT count(id) FROM establisments where id_owner = '.$_SESSION["usuario"]["id"]);
     $totalMessages = $messageController->getMessages('SELECT count(id) as meMessages FROM messenger_service where receiver = '.$_SESSION["usuario"]["id"]);
     $mdValoration = $establishmentController->getEstablishments('SELECT ROUND(SUM(valorate)/COUNT(v.id)) as media FROM valoration v join establisments e on v.id_establishment=e.id where e.id_owner='.$_SESSION["usuario"]["id"]);
+    if ($mdValoration['media'] == null) $mdValoration['media'] = 0;
     $establishments = $establishmentController->getEstablishments('SELECT * FROM establisments where id_owner = '.$_SESSION["usuario"]["id"]);
     //graficos
     $visitsClientOrNot = $establishmentController->getGraphicsData('SELECT if(count(date_of_booking)>0, 1, 0) as client
@@ -75,55 +76,51 @@
         </div>
     </div>
 </div>
-<div id="statistics">
-    <section class="content">
-      <div class="container-fluid" style="">
-        <div class="row" style="width:100%;justify-content:center;">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3><?= $totalEstablishment[0] ?></h3>
+<div id="statistics" style="width:70%;display: flex;flex-wrap: wrap;padding:3em;margin:0 auto;justify-content:center;" >
+    <div class="row" style="width:100%;justify-content:center;">
+        <div class="col-lg-4 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+            <div class="inner">
+            <h3><?= $totalEstablishment[0] ?></h3>
 
-                <p>Mis establecimientos</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
+            <p>Mis establecimientos</p>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3><?= $totalMessages[0]['meMessages'] ?></h3>
-
-                <p>Mis mensajes</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
+            <div class="icon">
+            <i class="ion ion-bag"></i>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3><?=$mdValoration[0]?></h3>
-
-                <p>Valoración media de los establecimientos</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-            </div>
-          </div>
-          <!-- ./col -->
         </div>
-      </div>
-    </section>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+            <h3><?= $totalMessages[0]['meMessages'] ?></h3>
+
+            <p>Mis mensajes</p>
+            </div>
+            <div class="icon">
+            <i class="ion ion-person-add"></i>
+            </div>
+        </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+            <div class="inner">
+            <h3><?=$mdValoration['media']?></h3>
+
+            <p>Valoración media de los establecimientos</p>
+            </div>
+            <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+            </div>
+        </div>
+        </div>
+        <!-- ./col -->
+    </div>
     <div class='container'>
         <div class="row" style='margin:1em;'>
             <div class="col-sm-6 col-lg-6">
@@ -233,7 +230,6 @@
         const threeMonthActuals = [ date.getMonth(), date.getMonth()-1<0?meses.length-1:date.getMonth()-1, date.getMonth()-2<0?meses.length-2:date.getMonth()-2 ];
 
         const visitsByMonth = <?= $visitsByMonth_json ?>;
-        console.log(visitsByMonth);
         let result = visitsByMonth.map((value) => threeMonthActuals.indexOf(parseInt(value.mes,10)-1)>-1 ? value : false);
         result = result.filter(value => value !== false);
         result = threeMonthActuals.sort(( a, b ) => { return a - b; }).map((mes) => { 

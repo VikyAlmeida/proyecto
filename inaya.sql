@@ -80,13 +80,13 @@ create table if not exists establisments(
   constraint fk_category foreign key (id_category) references categories(id)
 );
 
-insert into establisments (description, name, location, slug, id_category) value ('description ','The Jungle - Lounge Bar', 'Av. de Villa Real de San Antonio, 3, 21400 Ayamonte, Huelva', 'jungle-bar', 2);
-insert into establisments (description, name, location, slug, id_category) value ('description ','Café Bávaro Coffee', 'Calle Enrique Villegas Vélez, 9, 21400 Ayamonte, Huelva', 'cafe-bavaro', 2);
-insert into establisments (description, name, location, slug, id_category) value ('description ','Sala saona', 'C/ Médico Rey García', 'sala-saona', 2);
-insert into establisments (description, name, location, slug, id_category) value ('description ','Galerias Abreu', 'P.º de la Ribera, 4, 21400 Ayamonte, Huelva', 'galerias-abreu', 3);
-insert into establisments (description, name, location, slug, id_category) value ('description ','lefties', ' C.C. La Plaza, Av. de la Constitución, 6, 21400 Ayamonte, Huelva', 'lefties', 3);
-insert into establisments (description, name, location, slug, id_category) value ('description ','Mesón Bar La Ribera', 'P.º de la Ribera, 2, 21400 Ayamonte, Huelva', 'ribera-bar', 1);
-insert into establisments (description, name, location, slug, id_category) value ('description ','Playa canela Hotel 4*', 'Av. de la Mojarra, 0, 21409, Huelva', 'playa-canela', 4);
+insert into establisments (created_at, description, name, location, slug, id_category) value ('2022-10-12 00:57:41',"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",'The Jungle - Lounge Bar', 'Av. de Villa Real de San Antonio, 3, 21400 Ayamonte, Huelva', 'jungle-bar', 2);
+insert into establisments (created_at, description, name, location, slug, id_category) value ('2022-11-12 00:57:41','description ','Café Bávaro Coffee', 'Calle Enrique Villegas Vélez, 9, 21400 Ayamonte, Huelva', 'cafe-bavaro', 2);
+insert into establisments (created_at, description, name, location, slug, id_category) value ('2022-10-12 00:57:41','description ','Sala saona', 'C/ Médico Rey García', 'sala-saona', 2);
+insert into establisments (created_at, description, name, location, slug, id_category) value ('2022-10-12 00:57:41','description ','Galerias Abreu', 'P.º de la Ribera, 4, 21400 Ayamonte, Huelva', 'galerias-abreu', 3);
+insert into establisments (created_at, description, name, location, slug, id_category) value ('2022-11-12 00:57:41','description ','lefties', ' C.C. La Plaza, Av. de la Constitución, 6, 21400 Ayamonte, Huelva', 'lefties', 3);
+insert into establisments (created_at, description, name, location, slug, id_category) value ('2022-11-12 00:57:41','description ','Mesón Bar La Ribera', 'P.º de la Ribera, 2, 21400 Ayamonte, Huelva', 'ribera-bar', 1);
+insert into establisments (created_at, description, name, location, slug, id_category) value ('2022-11-12 00:57:41','description ','Playa canela Hotel 4*', 'Av. de la Mojarra, 0, 21409, Huelva', 'playa-canela', 4);
 
 create table if not exists establisments_image(
   id int(4) auto_increment primary key,

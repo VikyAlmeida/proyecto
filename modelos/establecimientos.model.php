@@ -114,6 +114,18 @@
             else
             {return false;}
         }
+        
+        public static function addPhotoFavorite($datos){
+            $conexion = Conectar::conectate();
+            $tabla = self::$tabla_image;
+            
+            $query = "insert into ".$tabla." (img, id_establishment,favorite) value (?,?,?);";
+            $result = $conexion->prepare($query);
+            if($result->execute(array($datos["image"], $datos["id"], $datos["favorite"])))
+            {return true;}
+            else
+            {return false;}
+        }
         public static function getValorate($query) {           
             $conexion = Conectar::conectate();
 

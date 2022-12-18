@@ -9,6 +9,9 @@
     $countEstablishment = $establishmentController->getEstablishments('SELECT count(id) as establishments FROM establisments');
     // $countEstablishment = $establishmentController->getEstablishments('SELECT count(id) as establishments from establishments');
     $countCategory = $categoryController->getCategories('SELECT count(id) as categories FROM categories');
+    if (!isset($_SESSION['data'])):
+        include('./vistas/modulos/partials/seeder.php');
+    endif;
 ?> 
     <section class="welcome-area">
         <div class="welcome-slides owl-carousel">
