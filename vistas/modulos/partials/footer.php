@@ -12,6 +12,7 @@
                             <h4>Inaya</h4>
                             <span>ayuntamiento@ayamonte.es</span>
                             <span>Plaza La Laguna, 1</span>
+                            <span><a href="./guia_de_estilo/index.html">Guia de estilo</a></span>
                         </div>
                     </div>
 
